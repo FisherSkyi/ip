@@ -23,4 +23,13 @@ public class Task {
         return this.description;
     }
 
+    @Override
+    public String toString() {
+        if (this.isDone) {
+            return "[X] " + this.description;
+        } else {
+            return "[ ] " + this.description;
+        }
+    }
+
 }
