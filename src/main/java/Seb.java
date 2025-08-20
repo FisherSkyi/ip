@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Seb {
     private final String name = "Seb";
-    private static ArrayList<String> things = new ArrayList<>();
+    private static ArrayList<Task> things = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner((System.in));
@@ -25,15 +25,28 @@ public class Seb {
                         "     Bye. Hope to see you again soon!\n" +
                         "    ____________________________________________________________");
                 break;
-            }
-            if (line.equals("list")) {
+            } else if (line.matches("^mark \\d+$")) {
+                int index = Integer.parseInt(line.split(" ")[1]);
+                things.get(index).markAsDone();
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Nice! I've marked this task as done:\n" +
+                        String.format("       [%s] %s", things.get(index).getStatusIcon(), things.get(index).getDescription()));
+                System.out.println("    ____________________________________________________________");
+            } else if (line.matches("^unmark \\d+$")) {
+                int index = Integer.parseInt(line.split(" ")[1]);
+                things.get(index).unmarkAsDone();
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     OK, I've marked this task as not done yet:\n" +
+                        String.format("       [%s] %s", things.get(index).getStatusIcon(), things.get(index).getDescription()));
+                System.out.println("    ____________________________________________________________");
+            } else if (line.equals("list")) {
                 System.out.println("    ____________________________________________________________");
                 for (int i = 0; i < things.size(); i++) {
-                    System.out.println(String.format("     %d. %s",i, things.get(i)));
+                    System.out.println(String.format("     %d.[%s] %s",i, things.get(i).getStatusIcon(), things.get(i).getDescription()));
                 }
                 System.out.println("    ____________________________________________________________");
             } else if (!line.isEmpty()) {
-                things.add(line);
+                things.add(new Task(line));
                 System.out.println(
                         "    ____________________________________________________________\n" +
                         String.format("     added: %s\n", line) +
