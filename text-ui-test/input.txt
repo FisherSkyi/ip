@@ -3,4 +3,8 @@ list
 deadline assign1 /by yesterday?
 event welcome tea /from Mon 2pm /to 4pm
 list
+mark 1
+list
+unmark 1
+list
 bye
