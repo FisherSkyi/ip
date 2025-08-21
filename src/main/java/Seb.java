@@ -49,6 +49,16 @@ public class Seb {
                                     "     OK, I've marked this task as not done yet:\n" +
                                     "       " + things.get(index).toString() + "\n" +
                                     "    ____________________________________________________________");
+                } else if (line.matches("^delete \\d+$")) {
+                    int index = Integer.parseInt(line.split(" ")[1]) - 1;
+                    Task t = things.get(index);
+                    things.remove(index);
+                    System.out.println(
+                            "    ____________________________________________________________\n" +
+                                    "     Noted. I've removed this task:\n" +
+                                    "       " + t.toString() + "\n" +
+                                    "     Now you have " + things.size() + " tasks in the list.\n" +
+                                    "    ____________________________________________________________");
                 } else if (line.equals("list")) {
                     System.out.println(
                             "    ____________________________________________________________\n" +
