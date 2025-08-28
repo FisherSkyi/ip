@@ -12,7 +12,16 @@ public class Parser {
     private static final Pattern MARK_RE = Pattern.compile("^mark\\s+(\\d+)$");
     private static final Pattern UNMARK_RE = Pattern.compile("^unmark\\s+(\\d+)$");
     private static final Pattern DELETE_RE = Pattern.compile("^delete\\s+(\\d+)$");
-    
+    private static final Pattern FIND_RE = Pattern.compile("^find\\s+(\\S.*)$");
+
+    /**
+     * Parses user input and returns the corresponding Command object.
+     * @param input the user input string
+     * @return the Command object representing the user input
+     * @throws WrongDescriptionException if the task description is missing or incorrect
+     * @throws NoDateException if the date/time for deadline or event is missing
+     * @throws UnknownInputException if the input command is unknown
+     */
     public Command parseCommand(String input) throws WrongDescriptionException, NoDateException, UnknownInputException {
         String trimmedInput = input.trim();
         
@@ -32,12 +41,20 @@ public class Parser {
             return parseUnmarkCommand(trimmedInput);
         } else if (trimmedInput.startsWith("delete")) {
             return parseDeleteCommand(trimmedInput);
+        } else if (trimmedInput.startsWith("find")) {
+            return parseFindCommand(trimmedInput);
         } else if (!trimmedInput.isEmpty()) {
             throw new UnknownInputException();
-        } 
+        }
         return new NoOpCommand(); // empty input
     }
-    
+
+    /**
+     * Parses a todo command and returns the corresponding AddCommand object.
+     * @param input the user input string
+     * @return the AddCommand object for the todo task
+     * @throws WrongDescriptionException if the task description is missing or incorrect
+     */
     private Command parseTodoCommand(String input) throws WrongDescriptionException {
         Matcher m = TODO_RE.matcher(input);
         if (m.matches()) {
@@ -47,6 +64,13 @@ public class Parser {
         }
     }
     
+    /**
+     * Parses a deadline command and returns the corresponding AddCommand object.
+     * @param input the user input string
+     * @return the AddCommand object for the deadline task
+     * @throws WrongDescriptionException if the task description is missing or incorrect
+     * @throws NoDateException if the deadline date/time is missing
+     */
     private Command parseDeadlineCommand(String input) throws WrongDescriptionException, NoDateException {
         Matcher m = DEADLINE_RE.matcher(input);
         if (m.matches()) {
@@ -60,6 +84,13 @@ public class Parser {
         }
     }
     
+    /**
+     * Parses an event command and returns the corresponding AddCommand object.
+     * @param input the user input string
+     * @return the AddCommand object for the event task
+     * @throws WrongDescriptionException if the task description is missing or incorrect
+     * @throws NoDateException if the event date/time range is missing
+     */
     private Command parseEventCommand(String input) throws WrongDescriptionException, NoDateException {
         Matcher m = EVENT_RE.matcher(input);
         if (m.matches()) {
@@ -73,6 +104,11 @@ public class Parser {
         }
     }
     
+    /**
+     * Parses a mark command and returns the corresponding MarkCommand object.
+     * @param input the user input string
+     * @return the MarkCommand object for marking the task
+     */
     private Command parseMarkCommand(String input) {
         Matcher m = MARK_RE.matcher(input);
         if (m.matches()) {
@@ -83,6 +119,11 @@ public class Parser {
         }
     }
     
+    /**
+     * Parses an unmark command and returns the corresponding UnmarkCommand object.
+     * @param input the user input string
+     * @return the UnmarkCommand object for unmarking the task
+     */
     private Command parseUnmarkCommand(String input) {
         Matcher m = UNMARK_RE.matcher(input);
         if (m.matches()) {
@@ -93,6 +134,26 @@ public class Parser {
         }
     }
     
+    /**
+     * Parses a find command and returns the corresponding FindCommand object.
+     * @param input the user input string
+     * @return the FindCommand object for finding tasks
+     * @throws WrongDescriptionException if the keyword is missing
+     */
+    private Command parseFindCommand(String input) {
+        Matcher m = FIND_RE.matcher(input);
+        if (m.matches()) {
+            return new FindCommand(m.group(1));
+        } else {
+            throw new IllegalArgumentException("Invalid find command format");
+        }
+    }
+    
+    /**
+     * Parses a delete command and returns the corresponding DeleteCommand object.
+     * @param input the user input string
+     * @return the DeleteCommand object for deleting the task
+     */
     private Command parseDeleteCommand(String input) {
         Matcher m = DELETE_RE.matcher(input);
         if (m.matches()) {
