@@ -38,5 +38,19 @@ public class Task {
             return "[ ] " + this.description;
         }
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Task)) {
+            return false;
+        }
+        Task o = (Task) other;
+        return this.description.equals(o.description)
+                && this.isDone == o.isDone
+                && this.type == o.type;
+    }
 
 }

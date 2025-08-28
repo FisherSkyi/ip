@@ -16,5 +16,17 @@ public class AddCommand implements Command {
                "       " + task.toString() + "\n" +
                String.format("     Now you have %d tasks in the list.", tasks.size());
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof AddCommand)) {
+            return false;
+        }
+        AddCommand o = (AddCommand) other;
+        return this.task.equals(o.task);
+    }
 }
 
