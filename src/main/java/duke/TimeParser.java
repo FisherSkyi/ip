@@ -4,7 +4,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility class for parsing date and time strings into LocalDateTime objects.
+ */
 public class TimeParser {
+    /**
+     * Parses a date/time string into a LocalDateTime object.
+     * @param input the date/time string to parse
+     * @return the parsed LocalDateTime object
+     */
     public static LocalDateTime parseDateTime(String input) {
         // 1. Try ISO_LOCAL_DATE_TIME (2007-12-03T10:15:30)
         try {

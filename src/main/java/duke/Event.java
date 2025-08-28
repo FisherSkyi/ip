@@ -2,13 +2,22 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a start and end date/time.
+ */
 public class Event extends Task {
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
     protected String startString;
     protected String endString;
     private static boolean isSilentLoading = false; // Flag for silent loading
-
+    
+    /**
+     * Creates an Event task.
+     * @param description the description of the task
+     * @param start the start date/time as a string
+     * @param end the end date/time as a string
+     */
     public Event(String description, String start, String end) {
         super(description, TaskType.EVENT);
         this.startString = start; // Always store the original strings
@@ -24,7 +33,11 @@ public class Event extends Task {
             }
         }
     }
-
+    
+    /**
+     * Returns a string representation of the Event task.
+     * @return the string representation
+     */
     @Override
     public String toString() {
         if (startDateTime == null && endDateTime == null) {
@@ -48,11 +61,16 @@ public class Event extends Task {
         }
     }
     
-    // Static methods to control silent loading mode
+    /**
+     * Starts silent loading mode to suppress error messages during loading.
+     */
     public static void startSilentLoading() {
         isSilentLoading = true;
     }
     
+    /**
+     * Ends silent loading mode.
+     */
     public static void endSilentLoading() {
         isSilentLoading = false;
     }

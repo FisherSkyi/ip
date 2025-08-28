@@ -1,6 +1,11 @@
 package duke;
 import duke.command.*;
 
+/**
+ * The main class of the Seb application.
+ * It initializes the application, loads tasks from storage,
+ * and processes user commands in a loop until the user exits.
+ */
 public class Seb {
     private final String name = "Seb";
     private Storage storage;
@@ -14,6 +19,11 @@ public class Seb {
         this.parser = new Parser();
     }
     
+    /**
+     * Runs the main loop of the Seb application.
+     * It displays a welcome message, loads tasks from storage.
+     * Then it enters a loop to read and process user commands until the user issues an exit command
+     */
     public void run() {
         Ui.showWelcome();
         tasks = storage.loadTasks();
