@@ -1,6 +1,7 @@
+package duke;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import duke.command.*;
 
 public class Parser {
     // task must not be empty, can contain spaces, must not start with space, time/date can be empty

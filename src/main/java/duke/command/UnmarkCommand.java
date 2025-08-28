@@ -1,3 +1,5 @@
+package duke.command;
+import duke.*;
 public class UnmarkCommand implements Command {
     private final int index;
     

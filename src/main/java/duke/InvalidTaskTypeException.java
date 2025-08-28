@@ -1,3 +1,4 @@
+package duke;
 /**
  * Used in Storage.
  * Thrown when an invalid task type is encountered.

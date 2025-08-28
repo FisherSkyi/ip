@@ -1,3 +1,5 @@
+package duke.command;
+import duke.*;
 public class MarkCommand implements Command {
     private final int index;
     

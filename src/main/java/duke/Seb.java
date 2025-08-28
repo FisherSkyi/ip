@@ -1,3 +1,6 @@
+package duke;
+import duke.command.*;
+
 public class Seb {
     private final String name = "Seb";
     private Storage storage;
