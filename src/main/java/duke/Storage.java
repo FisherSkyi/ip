@@ -6,13 +6,20 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+/**
+ * Manages loading and saving of tasks to a specified file.
+ */
 public class Storage {
     private String filePath;
     
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
+    
+    /**
+     * Loads tasks from the specified file.
+     * @return TaskList containing the loaded tasks.
+     */
     public TaskList loadTasks() {
         TaskList tasks = new TaskList();
         File file = new File(this.filePath);
@@ -81,7 +88,11 @@ public class Storage {
         }
         return tasks;
     }
-
+    
+    /**
+     * Saves the given TaskList to the specified file.
+     * @param tasks the TaskList to save
+     */
     public void saveTasks(TaskList tasks) {
         File file = new File(this.filePath);
         file.getParentFile().mkdirs(); // Create directories if not exist

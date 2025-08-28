@@ -1,13 +1,20 @@
 package duke;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface.
+ */
 public class Ui {
     private Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-
+    
+    /**
+     * Reads a command from the user.
+     * @return the command as a string
+     */
     public String readCommand() {
         return scanner.nextLine();
     }

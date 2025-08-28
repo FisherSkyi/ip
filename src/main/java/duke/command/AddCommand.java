@@ -1,6 +1,9 @@
 package duke.command;
 import duke.*;
 
+/**
+ * Represents a command to add a task.
+ */
 public class AddCommand implements Command {
     private final Task task;
     
@@ -8,6 +11,12 @@ public class AddCommand implements Command {
         this.task = task;
     }
     
+    /**
+     * Executes the add command by adding the task to the task list and saving it to storage.
+     * @param tasks
+     * @param storage
+     * @return
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) {
         tasks.addTasks(task);

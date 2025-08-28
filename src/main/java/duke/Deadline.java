@@ -2,12 +2,19 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     protected LocalDateTime dateTime;
     protected String dateString;
     private static boolean isSilentLoading = false; // Flag for silent loading
-
+    
+    /**
+     * Creates a Deadline task.
+     * @param description the description of the task
+     * @param by the deadline date/time as a string
+     */
     public Deadline(String description, String by) {
         super(description, TaskType.DEADLINE);
         this.dateString = by;
@@ -32,11 +39,16 @@ public class Deadline extends Task {
         }
     }
     
-    // Static methods to control silent loading mode
+    /**
+     * Starts silent loading mode to suppress error messages during loading.
+     */
     public static void startSilentLoading() {
         isSilentLoading = true;
     }
     
+    /**
+     * Ends silent loading mode.
+     */
     public static void endSilentLoading() {
         isSilentLoading = false;
     }
