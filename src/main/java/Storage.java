@@ -67,11 +67,12 @@ public class Storage {
         return tasks;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(TaskList tasks) {
         File file = new File(this.filePath);
         file.getParentFile().mkdirs(); // Create directories if not exist
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-            for (Task t : tasks) {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task t = tasks.getTasks(i);
                 StringBuilder sb = new StringBuilder();
                 sb.append(t.getType().name()).append(" | "); // Task type
                 sb.append(t.isDone ? "1" : "0").append(" | "); // Completion status
