@@ -56,5 +56,4 @@ public class Task {
                 && this.isDone == o.isDone
                 && this.type == o.type;
     }
-
 }

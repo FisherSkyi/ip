@@ -28,17 +28,10 @@ public class Storage {
             return tasks;
         }
         
-        // Enable silent loading mode to suppress error messages
         Deadline.startSilentLoading();
         Event.startSilentLoading();
         
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            /**
-             * example file content:
-             * TODO | 1 | read book
-             * DEADLINE | 0 | return book | June 6th
-             * EVENT | 0 | project meeting | Aug 6th | Sep 7th
-             */
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\| ");
