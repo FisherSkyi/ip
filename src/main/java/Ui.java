@@ -18,5 +18,12 @@ public class Ui {
                            "    ____________________________________________________________");
     }
     
+    public static void showLine() {
+        System.out.println("    ____________________________________________________________");
+    }
+    
+    public static void showError(Exception e) {
+        System.out.println(e.getMessage());
+    }
 }
 

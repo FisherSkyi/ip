@@ -16,12 +16,21 @@ public class Storage {
     public TaskList loadTasks() {
         TaskList tasks = new TaskList();
         File file = new File(this.filePath);
+        
+        if (!file.exists()) {
+            return tasks;
+        }
+        
+        // Enable silent loading mode to suppress error messages
+        Deadline.startSilentLoading();
+        Event.startSilentLoading();
+        
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             /**
              * example file content:
              * TODO | 1 | read book
              * DEADLINE | 0 | return book | June 6th
-             * EVENT | 0 | project meeting | Aug 6th 2-4pm
+             * EVENT | 0 | project meeting | Aug 6th | Sep 7th
              */
             String line;
             while ((line = br.readLine()) != null) {
@@ -29,39 +38,46 @@ public class Storage {
                 String type = parts[0].trim();
                 boolean isDone = parts[1].trim().equals("1");
                 String description = parts[2].trim();
-                switch (type) {
-                case "TODO":
-                    Task t = new Todo(description);
-                    if (isDone) {
-                        t.markAsDone();
+                
+                try {
+                    switch (type) {
+                    case "TODO":
+                        Task t = new Todo(description);
+                        if (isDone) {
+                            t.markAsDone();
+                        }
+                        tasks.addTasks(t);
+                        break;
+                    case "DEADLINE":
+                        String by = parts.length > 3 ? parts[3].trim() : "";
+                        Task d = new Deadline(description, by);
+                        if (isDone) {
+                            d.markAsDone();
+                        }
+                        tasks.addTasks(d);
+                        break;
+                    case "EVENT":
+                        String start = parts.length > 3 ? parts[3].trim() : "";
+                        String end = parts.length > 4 ? parts[4].trim() : "";
+                        Task e = new Event(description, start, end);
+                        if (isDone) {
+                            e.markAsDone();
+                        }
+                        tasks.addTasks(e);
+                        break;
+                    default:
+                        throw new InvalidTaskTypeException(type);
                     }
-                    tasks.addTasks(t);
-                    break;
-                case "DEADLINE":
-                    String by = parts[3];
-                    Task d = new Deadline(description, by);
-                    if (isDone) {
-                        d.markAsDone();
-                    }
-                    tasks.addTasks(d);
-                    break;
-                case "EVENT":
-                    String start = parts[3];
-                    String end = parts[4];
-                    Task e = new Event(description, start, end);
-                    if (isDone) {
-                        e.markAsDone();
-                    }
-                    tasks.addTasks(e);
-                    break;
-                default:
-                    throw new InvalidTaskTypeException(type);
+                } catch (Exception e) {
+                    System.err.println("Warning: Problem loading task: " + line);
                 }
             }
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
-        } catch (InvalidTaskTypeException e) {
-            System.out.println("Invalid type: " + e.getMessage());
+        } finally {
+            // Disable silent loading mode after loading is complete
+            Deadline.endSilentLoading();
+            Event.endSilentLoading();
         }
         return tasks;
     }
@@ -73,14 +89,17 @@ public class Storage {
             for (int i = 0; i < tasks.size(); i++) {
                 Task t = tasks.getTasks(i);
                 StringBuilder sb = new StringBuilder();
-                sb.append(t.getType().name()).append(" | "); // Task type
-                sb.append(t.isDone ? "1" : "0").append(" | "); // Completion status
-                sb.append(t.getDescription()); // Description
+                sb.append(t.getType().name()).append(" | ");
+                sb.append(t.isDone ? "1" : "0").append(" | ");
+                sb.append(t.getDescription());
                 if (t instanceof Deadline) {
-                    sb.append(" | ").append(((Deadline) t).by);
+                    Deadline d = (Deadline) t;
+                    sb.append(" | ").append(d.dateString);
                 } else if (t instanceof Event) {
-                    sb.append(" | ").append(((Event) t).start).append(" | ").append(((Event) t).end);
+                    Event e = (Event) t;
+                    sb.append(" | ").append(e.startString).append(" | ").append(e.endString);
                 }
+                
                 bw.write(sb.toString());
                 bw.newLine();
             }
@@ -89,4 +108,3 @@ public class Storage {
         }
     }
 }
-
