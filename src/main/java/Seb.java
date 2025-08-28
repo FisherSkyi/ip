@@ -12,14 +12,15 @@ public class Seb {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner((System.in));
-        things.clear();
+        
         System.out.println(
                 "    ____________________________________________________________\n" +
                 "     Hello! I'm Seb, a chatbot made by Letian\n" +
                 "     What can I do for you?\n" +
                 "    ____________________________________________________________"
         );
-
+        things = Storage.loadTasks();
+        
         while (true) {
             try {
                 if (!sc.hasNextLine()) {
@@ -36,6 +37,7 @@ public class Seb {
                 } else if (line.matches("^mark \\d+$")) {
                     int index = Integer.parseInt(line.split(" ")[1]) - 1;
                     things.get(index).markAsDone();
+                    Storage.saveTasks(things);
                     System.out.println(
                             "    ____________________________________________________________\n" +
                                     "     Nice! I've marked this task as done:\n" +
@@ -44,6 +46,7 @@ public class Seb {
                 } else if (line.matches("^unmark \\d+$")) {
                     int index = Integer.parseInt(line.split(" ")[1]) - 1;
                     things.get(index).unmarkAsDone();
+                    Storage.saveTasks(things);
                     System.out.println(
                             "    ____________________________________________________________\n" +
                                     "     OK, I've marked this task as not done yet:\n" +
@@ -53,6 +56,7 @@ public class Seb {
                     int index = Integer.parseInt(line.split(" ")[1]) - 1;
                     Task t = things.get(index);
                     things.remove(index);
+                    Storage.saveTasks(things);
                     System.out.println(
                             "    ____________________________________________________________\n" +
                                     "     Noted. I've removed this task:\n" +
@@ -71,6 +75,7 @@ public class Seb {
                     Matcher m = TODO_RE.matcher(line);
                     if (m.matches()) {
                         things.add(new Todo(m.group(1)));
+                        Storage.saveTasks(things);
                         System.out.println(
                                 "    ____________________________________________________________\n" +
                                         "     Got it. I've added this task:\n" +
@@ -87,6 +92,7 @@ public class Seb {
                             throw new NoDateException();
                         } else {
                             things.add(new Deadline(m.group(1), m.group(2)));
+                            Storage.saveTasks(things);
                             System.out.println(
                                     "    ____________________________________________________________\n" +
                                             "     Got it. I've added this task:\n" +
@@ -104,6 +110,7 @@ public class Seb {
                             throw new NoDateException();
                         } else {
                             things.add(new Event(m.group(1), m.group(2), m.group(3)));
+                            Storage.saveTasks(things);
                             System.out.println(
                                     "    ____________________________________________________________\n" +
                                             "     Got it. I've added this task:\n" +
