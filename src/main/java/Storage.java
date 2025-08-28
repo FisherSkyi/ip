@@ -7,11 +7,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/seb.txt";
+    private String filePath;
+    
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
 
-    public static ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(FILE_PATH);
+        File file = new File(this.filePath);
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             /**
@@ -63,8 +67,8 @@ public class Storage {
         return tasks;
     }
 
-    public static void saveTasks(ArrayList<Task> tasks) {
-        File file = new File(FILE_PATH);
+    public void saveTasks(ArrayList<Task> tasks) {
+        File file = new File(this.filePath);
         file.getParentFile().mkdirs(); // Create directories if not exist
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             for (Task t : tasks) {
