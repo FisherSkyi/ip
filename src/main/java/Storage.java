@@ -13,10 +13,9 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public TaskList loadTasks() {
+        TaskList tasks = new TaskList();
         File file = new File(this.filePath);
-
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             /**
              * example file content:
@@ -36,7 +35,7 @@ public class Storage {
                     if (isDone) {
                         t.markAsDone();
                     }
-                    tasks.add(t);
+                    tasks.addTasks(t);
                     break;
                 case "DEADLINE":
                     String by = parts[3];
@@ -44,7 +43,7 @@ public class Storage {
                     if (isDone) {
                         d.markAsDone();
                     }
-                    tasks.add(d);
+                    tasks.addTasks(d);
                     break;
                 case "EVENT":
                     String start = parts[3];
@@ -53,7 +52,7 @@ public class Storage {
                     if (isDone) {
                         e.markAsDone();
                     }
-                    tasks.add(e);
+                    tasks.addTasks(e);
                     break;
                 default:
                     throw new InvalidTaskTypeException(type);
