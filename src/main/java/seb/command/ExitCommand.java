@@ -1,5 +1,5 @@
-package duke.command;
-import duke.*;
+package seb.command;
+import seb.*;
 /**
  * Represents the exit command.
  */

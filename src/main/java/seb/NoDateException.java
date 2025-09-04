@@ -1,4 +1,4 @@
-package duke;
+package seb;
 public class NoDateException extends RuntimeException {
     /**
      * Constructor for NoDateException.

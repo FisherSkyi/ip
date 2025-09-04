@@ -1,4 +1,4 @@
-package duke;
+package seb;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package duke;
+package seb;
 
 /**
  * Represents a task with a description, completion status, and type.

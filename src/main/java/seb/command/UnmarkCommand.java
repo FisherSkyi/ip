@@ -1,17 +1,16 @@
-package duke.command;
-import duke.*;
+package seb.command;
+import seb.*;
 /**
- * Represents the command to mark a task as done.
+ * Represents the unmark command.
  */
-public class MarkCommand implements Command {
+public class UnmarkCommand implements Command {
     private final int index;
     
-    public MarkCommand(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
-    
     /**
-     * Executes the mark command by marking the task at the specified index as done
+     * Executes the unmark command by marking the task at the specified index as not done
      * and saving the updated task list to storage.
      * @param tasks
      * @param storage
@@ -19,9 +18,10 @@ public class MarkCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        tasks.getTasks(index).markAsDone();
+        tasks.getTasks(index).unmarkAsDone();
         storage.saveTasks(tasks);
-        return "     Nice! I've marked this task as done:\n" +
+        
+        return "     OK, I've marked this task as not done yet:\n" +
                "       " + tasks.getTasks(index).toString();
     }
 }

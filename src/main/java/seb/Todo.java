@@ -1,4 +1,4 @@
-package duke;
+package seb;
 
 /**
  * Represents a todo task.

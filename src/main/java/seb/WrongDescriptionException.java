@@ -1,4 +1,4 @@
-package duke;
+package seb;
 
 /**
  * Exception thrown when the description of a task is incorrect.

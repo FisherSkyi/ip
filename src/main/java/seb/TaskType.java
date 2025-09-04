@@ -1,4 +1,4 @@
-package duke;
+package seb;
 public enum TaskType {
     TODO,
     DEADLINE,

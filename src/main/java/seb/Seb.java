@@ -1,5 +1,5 @@
-package duke;
-import duke.command.*;
+package seb;
+import seb.command.*;
 
 /**
  * The main class of the Seb application.

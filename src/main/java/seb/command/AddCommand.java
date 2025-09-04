@@ -1,5 +1,5 @@
-package duke.command;
-import duke.*;
+package seb.command;
+import seb.*;
 
 /**
  * Represents a command to add a task.

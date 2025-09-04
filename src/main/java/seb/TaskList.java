@@ -1,4 +1,4 @@
-package duke;
+package seb;
 import java.util.ArrayList;
 
 /**

@@ -1,7 +1,7 @@
-package duke;
+package seb;
 
-import duke.command.AddCommand;
-import duke.command.Command;
+import seb.command.AddCommand;
+import seb.command.Command;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

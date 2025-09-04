@@ -1,4 +1,4 @@
-package duke;
+package seb;
 /**
  * Used in Storage.
  * Thrown when an invalid task type is encountered.

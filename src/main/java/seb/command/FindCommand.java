@@ -1,8 +1,8 @@
-package duke.command;
+package seb.command;
 
-import duke.Storage;
-import duke.Task;
-import duke.TaskList;
+import seb.Storage;
+import seb.Task;
+import seb.TaskList;
 
 import java.util.ArrayList;
 
