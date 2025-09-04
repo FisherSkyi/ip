@@ -18,12 +18,18 @@ public class Main extends Application{
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private Seb seb = new Seb("data/seb.txt");
     
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image sebImage = new Image(this.getClass().getResourceAsStream("/images/DaSeb.png"));
     
     public void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String dukeText = seb.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getDukeDialog(dukeText, sebImage)
+        );
         userInput.clear();
     }
     @Override

@@ -50,6 +50,10 @@ public class Seb {
         }
     }
     
+    public String getResponse(String input) {
+        return input;
+    }
+    
     public static void main(String[] args) {
         new Seb("data/seb.txt").run();
     }
