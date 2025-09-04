@@ -1,6 +1,8 @@
 package seb;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
+import javafx.util.Duration;
 
 public class Main extends Application{
     private ScrollPane scrollPane;
@@ -23,15 +26,31 @@ public class Main extends Application{
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image sebImage = new Image(this.getClass().getResourceAsStream("/images/DaSeb.png"));
     
-    public void handleUserInput() {
+    public void handleUserInput() throws UnknownInputException, WrongDescriptionException {
         String userText = userInput.getText();
-        String dukeText = seb.getResponse(userInput.getText());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(dukeText, sebImage)
-        );
-        userInput.clear();
+        if (!userText.trim().equalsIgnoreCase("bye")) {
+            String sebText = seb.getResponse(userInput.getText());
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, userImage),
+                    DialogBox.getDukeDialog(sebText, sebImage)
+            );
+            userInput.clear();
+        } else {
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog("Bye! See you soon.", sebImage)
+            );
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+            PauseTransition delay = new PauseTransition(Duration.millis(400));
+            delay.setOnFinished(e -> {
+                 Stage stage = (Stage) userInput.getScene().getWindow();
+                 stage.close();
+            });
+            delay.play();
+        }
+
     }
+    
     @Override
     public void start(Stage stage) {
 
@@ -44,10 +63,23 @@ public class Main extends Application{
         sendButton = new Button("send");
         
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            try {
+                handleUserInput();
+            } catch (UnknownInputException e) {
+                throw new RuntimeException(e);
+            } catch (WrongDescriptionException e) {
+                throw new RuntimeException(e);
+            }
         });
+        
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            try {
+                handleUserInput();
+            } catch (UnknownInputException e) {
+                throw new RuntimeException(e);
+            } catch (WrongDescriptionException e) {
+                throw new RuntimeException(e);
+            }
         });
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         

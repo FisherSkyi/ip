@@ -2,6 +2,7 @@
 
 Declare AI usage: 
 
-| Tool                     | Who       | Extent of use                        |
-|--------------------------|-----------|--------------------------------------|
-| Copilot<br/>(Gemini 2.5) | Yu Letian | Generate All JavaDoc by Autocomplete |
+| Extent of use                        | Tool                     |  
+|--------------------------------------|--------------------------|
+| Generate All JavaDoc by Autocomplete | Copilot<br/>(Gemini 2.5) |
+| Close GUI when User Input "bye"      | ChatGPT-5                |

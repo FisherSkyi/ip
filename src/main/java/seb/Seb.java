@@ -17,6 +17,7 @@ public class Seb {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.parser = new Parser();
+        tasks = storage.loadTasks();
     }
     
     /**
@@ -26,7 +27,7 @@ public class Seb {
      */
     public void run() {
         Ui.showWelcome();
-        tasks = storage.loadTasks();
+//        tasks = storage.loadTasks();
         boolean isWorking = true;
         while (isWorking) {
             try {
@@ -50,8 +51,16 @@ public class Seb {
         }
     }
     
-    public String getResponse(String input) {
-        return input;
+    public String getResponse(String userInput) throws UnknownInputException, WrongDescriptionException {
+        try {
+            String input = userInput.trim();
+            Command command = parser.parseCommand(input);
+            String response = command.execute(tasks, storage);
+            return response;
+        } catch (UnknownInputException | WrongDescriptionException e) {
+            String error = e.getMessage();
+            return error;
+        }
     }
     
     public static void main(String[] args) {
