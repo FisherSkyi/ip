@@ -106,6 +106,8 @@ public class Storage {
                 } else if (t instanceof Event) {
                     Event e = (Event) t;
                     sb.append(" | ").append(e.startString).append(" | ").append(e.endString);
+                } else {
+                    assert false : "Unknown task type";
                 }
                 bw.write(sb.toString());
                 bw.newLine();
