@@ -50,6 +50,7 @@ application {
 shadowJar {
     archiveBaseName = "seb"
     archiveClassifier = null
+    archiveFileName = "seb.jar"
 }
 
 run{
