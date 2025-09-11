@@ -32,12 +32,8 @@ public class TaskList {
      * @return An ArrayList<Task> containing all tasks that match the keyword.
      */
     public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                foundTasks.add(task);
-            }
-        }
-        return foundTasks;
+        return tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(java.util.stream.Collectors.toCollection(ArrayList::new));
     }
 }
