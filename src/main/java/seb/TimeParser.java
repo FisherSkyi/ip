@@ -14,6 +14,10 @@ public class TimeParser {
      * @return the parsed LocalDateTime object
      */
     public static LocalDateTime parseDateTime(String input) {
+        /**
+         * here use multiple try-catch blocks to attempt parsing with different formats.
+         * empty catch blocks are used to ignore exceptions from failed parsing attempts.
+         */
         // 1. Try ISO_LOCAL_DATE_TIME (2007-12-03T10:15:30)
         try {
             return LocalDateTime.parse(input, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
