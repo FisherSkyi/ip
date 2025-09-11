@@ -38,36 +38,8 @@ public class Storage {
                 String type = parts[0].trim();
                 boolean isDone = parts[1].trim().equals("1");
                 String description = parts[2].trim();
-                
                 try {
-                    switch (type) {
-                    case "TODO":
-                        Task t = new Todo(description);
-                        if (isDone) {
-                            t.markAsDone();
-                        }
-                        tasks.addTasks(t);
-                        break;
-                    case "DEADLINE":
-                        String by = parts.length > 3 ? parts[3].trim() : "";
-                        Task d = new Deadline(description, by);
-                        if (isDone) {
-                            d.markAsDone();
-                        }
-                        tasks.addTasks(d);
-                        break;
-                    case "EVENT":
-                        String start = parts.length > 3 ? parts[3].trim() : "";
-                        String end = parts.length > 4 ? parts[4].trim() : "";
-                        Task e = new Event(description, start, end);
-                        if (isDone) {
-                            e.markAsDone();
-                        }
-                        tasks.addTasks(e);
-                        break;
-                    default:
-                        throw new InvalidTaskTypeException(type);
-                    }
+                    checkType(type, description, isDone, parts, tasks);
                 } catch (Exception e) {
                     System.err.println("Warning: Problem loading task: " + line);
                 }
@@ -80,6 +52,38 @@ public class Storage {
             Event.endSilentLoading();
         }
         return tasks;
+    }
+    
+    private static void checkType(String type, String description, boolean isDone, String[] parts, TaskList tasks)
+            throws InvalidTaskTypeException {
+        switch (type) {
+        case "TODO":
+            Task t = new Todo(description);
+            if (isDone) {
+                t.markAsDone();
+            }
+            tasks.addTasks(t);
+            break;
+        case "DEADLINE":
+            String by = parts.length > 3 ? parts[3].trim() : "";
+            Task d = new Deadline(description, by);
+            if (isDone) {
+                d.markAsDone();
+            }
+            tasks.addTasks(d);
+            break;
+        case "EVENT":
+            String start = parts.length > 3 ? parts[3].trim() : "";
+            String end = parts.length > 4 ? parts[4].trim() : "";
+            Task e = new Event(description, start, end);
+            if (isDone) {
+                e.markAsDone();
+            }
+            tasks.addTasks(e);
+            break;
+        default:
+            throw new InvalidTaskTypeException(type);
+        }
     }
     
     /**
@@ -103,7 +107,6 @@ public class Storage {
                     Event e = (Event) t;
                     sb.append(" | ").append(e.startString).append(" | ").append(e.endString);
                 }
-                
                 bw.write(sb.toString());
                 bw.newLine();
             }
