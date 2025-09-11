@@ -33,5 +33,18 @@ public class Ui {
     public static void showError(Exception e) {
         System.out.println(e.getMessage());
     }
-}
 
+    /**
+     * Returns a message indicating the priority has been set for a task.
+     * @param task The task whose priority was set.
+     * @param priority The new priority value.
+     * @return The confirmation message.
+     */
+    public String showPrioritySet(Task task, int priority) {
+        if (priority > 0) {
+            return "Priority set to " + priority + " for task: " + task.toString();
+        } else {
+            return "Priority undecided for task: " + task.toString();
+        }
+    }
+}

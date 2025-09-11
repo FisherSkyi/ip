@@ -7,11 +7,16 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType type;
+    protected int priority = 0; // 0 = no priority, 1 = highest, etc.
 
     public Task(String description, TaskType type) {
+        this(description, type, 0);
+    }
+    public Task(String description, TaskType type, int priority) {
         this.description = description;
         this.isDone = false;
         this.type = type;
+        this.priority = priority;
     }
 
     public TaskType getType() {
@@ -34,12 +39,20 @@ public class Task {
         return this.description;
     }
 
+    public int getPriority() {
+        return this.priority;
+    }
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     @Override
     public String toString() {
+        String priorityStr = (priority > 0) ? "[P" + priority + "] " : "";
         if (this.isDone) {
-            return "[X] " + this.description;
+            return priorityStr + "[X] " + this.description;
         } else {
-            return "[ ] " + this.description;
+            return priorityStr + "[ ] " + this.description;
         }
     }
     

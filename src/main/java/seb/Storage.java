@@ -53,7 +53,7 @@ public class Storage {
         }
         return tasks;
     }
-    
+
     private static void checkType(String type, String description, boolean isDone, String[] parts, TaskList tasks)
             throws InvalidTaskTypeException {
         switch (type) {
