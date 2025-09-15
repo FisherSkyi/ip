@@ -27,7 +27,6 @@ public class Seb {
      */
     public void run() {
         Ui.showWelcome();
-//        tasks = storage.loadTasks();
         boolean isWorking = true;
         while (isWorking) {
             try {
