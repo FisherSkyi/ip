@@ -58,7 +58,8 @@ public class Storage {
             throws InvalidTaskTypeException {
         switch (type) {
         case "TODO":
-            Task t = new Todo(description);
+            int todoPriority = parts.length > 4 ? Integer.parseInt(parts[4].trim()) : 0;
+            Task t = new Todo(description, todoPriority);
             if (isDone) {
                 t.markAsDone();
             }
@@ -66,7 +67,8 @@ public class Storage {
             break;
         case "DEADLINE":
             String by = parts.length > 3 ? parts[3].trim() : "";
-            Task d = new Deadline(description, by);
+            int deadlinePriority = parts.length > 4 ? Integer.parseInt(parts[4].trim()) : 0;
+            Task d = new Deadline(description, by, deadlinePriority);
             if (isDone) {
                 d.markAsDone();
             }
@@ -75,7 +77,8 @@ public class Storage {
         case "EVENT":
             String start = parts.length > 3 ? parts[3].trim() : "";
             String end = parts.length > 4 ? parts[4].trim() : "";
-            Task e = new Event(description, start, end);
+            int eventPriority = parts.length > 5 ? Integer.parseInt(parts[5].trim()) : 0;
+            Task e = new Event(description, start, end, eventPriority);
             if (isDone) {
                 e.markAsDone();
             }
@@ -102,12 +105,12 @@ public class Storage {
                 sb.append(t.getDescription());
                 if (t instanceof Deadline) {
                     Deadline d = (Deadline) t;
-                    sb.append(" | ").append(d.dateString);
+                    sb.append(" | ").append(d.dateString).append(" | ").append(d.getPriority());
                 } else if (t instanceof Event) {
                     Event e = (Event) t;
-                    sb.append(" | ").append(e.startString).append(" | ").append(e.endString);
-                } else {
-                    assert false : "Unknown task type";
+                    sb.append(" | ").append(e.startString).append(" | ").append(e.endString).append(" | ").append(e.getPriority());
+                } else if (t instanceof Todo) {
+                    sb.append(" | null | ").append(t.getPriority());
                 }
                 bw.write(sb.toString());
                 bw.newLine();

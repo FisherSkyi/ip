@@ -29,14 +29,33 @@ public class Deadline extends Task {
         }
     }
     
+    public Deadline(String description, String by, int priority) {
+        super(description, TaskType.DEADLINE, priority);
+        this.dateString = by;
+        
+        try {
+            this.dateTime = TimeParser.parseDateTime(by.trim());
+        } catch (IllegalArgumentException e) {
+            // Only show error if not silent loading and not "null"
+            if (!isSilentLoading && !by.equals("null")) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
     @Override
     public String toString() {
+        String result;
         if (dateTime == null) {
-            return "[D]" + super.toString() + " (by: " + dateString + ")";
+            result = "[D]" + super.toString() + " (by: " + dateString + ")";
         } else {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            return "[D]" + super.toString() + " (by: " + dateTime.format(formatter) + ")";
+            result = "[D]" + super.toString() + " (by: " + dateTime.format(formatter) + ")";
         }
+        if (priority > 0) {
+            result = "[P" + priority + "] " + result;
+        }
+        return result;
     }
     
     /**

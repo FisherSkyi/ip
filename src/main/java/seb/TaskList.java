@@ -36,4 +36,13 @@ public class TaskList {
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(java.util.stream.Collectors.toCollection(ArrayList::new));
     }
+
+    /**
+     * Sets the priority of the task at the specified index.
+     * @param index The index of the task (0-based).
+     * @param priority The new priority value.
+     */
+    public void setPriority(int index, int priority) {
+        this.tasks.get(index).setPriority(priority);
+    }
 }

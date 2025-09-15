@@ -34,31 +34,52 @@ public class Event extends Task {
         }
     }
     
+    public Event(String description, String start, String end, int priority) {
+        super(description, TaskType.EVENT, priority);
+        this.startString = start; // Always store the original strings
+        this.endString = end;
+        
+        try {
+            this.startDateTime = TimeParser.parseDateTime(start.trim());
+            this.endDateTime = TimeParser.parseDateTime(end.trim());
+        } catch (IllegalArgumentException e) {
+            // Only show error if not silent loading and not "null"
+            if (!isSilentLoading && !start.equals("null") && !end.equals("null")) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
     /**
      * Returns a string representation of the Event task.
      * @return the string representation
      */
     @Override
     public String toString() {
+        String result;
         if (startDateTime == null && endDateTime == null) {
             // If parsing failed, just use the original strings
-            return "[E]" + super.toString() + " (from: " + startString + " to: " + endString + ")";
+            result =  "[E]" + super.toString() + " (from: " + startString + " to: " + endString + ")";
         } else if (startDateTime == null) {
             // If only start parsing failed
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            return "[E]" + super.toString() + " (from: " + startString +
+            result = "[E]" + super.toString() + " (from: " + startString +
                    " to: " + endDateTime.format(formatter) + ")";
         } else if (endDateTime == null) {
             // If only end parsing failed
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            return "[E]" + super.toString() + " (from: " + startDateTime.format(formatter) +
+            result = "[E]" + super.toString() + " (from: " + startDateTime.format(formatter) +
                    " to: " + endString + ")";
         } else {
             // If parsing succeeded, format the dates nicely
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            return "[E]" + super.toString() + " (from: " + startDateTime.format(formatter) +
+            result = "[E]" + super.toString() + " (from: " + startDateTime.format(formatter) +
                    " to: " + endDateTime.format(formatter) + ")";
         }
+        if (priority > 0) {
+            result = " [P" + priority + "] " + result;
+        }
+        return result;
     }
     
     /**
