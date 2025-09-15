@@ -45,12 +45,17 @@ public class Deadline extends Task {
     
     @Override
     public String toString() {
+        String result;
         if (dateTime == null) {
-            return "[D]" + super.toString() + " (by: " + dateString + ")";
+            result = "[D]" + super.toString() + " (by: " + dateString + ")";
         } else {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            return "[D]" + super.toString() + " (by: " + dateTime.format(formatter) + ")";
+            result = "[D]" + super.toString() + " (by: " + dateTime.format(formatter) + ")";
         }
+        if (priority > 0) {
+            result = "[P" + priority + "] " + result;
+        }
+        return result;
     }
     
     /**

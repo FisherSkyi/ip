@@ -13,6 +13,7 @@ public class Parser {
     private static final Pattern UNMARK_RE = Pattern.compile("^unmark\\s+(\\d+)$");
     private static final Pattern DELETE_RE = Pattern.compile("^delete\\s+(\\d+)$");
     private static final Pattern FIND_RE = Pattern.compile("^find\\s+(\\S.*)$");
+    private static final Pattern PRIORITY_SET_RE = Pattern.compile("^priority\\s+(\\d+)\\s+(\\d+)$");
 
     /**
      * Parses user input and returns the corresponding Command object.
@@ -43,10 +44,22 @@ public class Parser {
             return parseDeleteCommand(trimmedInput);
         } else if (trimmedInput.startsWith("find")) {
             return parseFindCommand(trimmedInput);
+        } else if (trimmedInput.startsWith("priority")) {
+            return parseSetPriorityCommand(trimmedInput);
         } else if (!trimmedInput.isEmpty()) {
             throw new UnknownInputException();
         }
         return new NoOpCommand(); // empty input
+    }
+
+    private Command parseSetPriorityCommand(String input) {
+        Matcher matcher = PRIORITY_SET_RE.matcher(input);
+        if (matcher.matches()) {
+            int index = Integer.parseInt(matcher.group(1));
+            int priority = Integer.parseInt(matcher.group(2));
+            return new seb.command.SetPriorityCommand(index, priority);
+        }
+        return new NoOpCommand();
     }
 
     /**
@@ -56,12 +69,21 @@ public class Parser {
      * @throws WrongDescriptionException if the task description is missing or incorrect
      */
     private Command parseTodoCommand(String input) throws WrongDescriptionException {
-        Matcher m = TODO_RE.matcher(input);
-        if (m.matches()) {
-            return new AddCommand(new Todo(m.group(1)));
-        } else {
+        String[] parts = input.split("/priority");
+        Matcher matcher = TODO_RE.matcher(parts[0].trim());
+        if (!matcher.matches()) {
             throw new WrongDescriptionException("todo");
         }
+        String description = matcher.group(1).trim();
+        int priority = 0;
+        if (parts.length > 1) {
+            try {
+                priority = Integer.parseInt(parts[1].trim());
+            } catch (NumberFormatException e) {
+                priority = 0;
+            }
+        }
+        return new AddCommand(new seb.Todo(description, priority));
     }
     
     /**
@@ -72,16 +94,23 @@ public class Parser {
      * @throws NoDateException if the deadline date/time is missing
      */
     private Command parseDeadlineCommand(String input) throws WrongDescriptionException, NoDateException {
-        Matcher m = DEADLINE_RE.matcher(input);
-        if (m.matches()) {
-            if (m.group(2) == null) {
-                throw new NoDateException();
-            } else {
-                return new AddCommand(new Deadline(m.group(1), m.group(2)));
-            }
-        } else {
+        String[] prioritySplit = input.split("/priority");
+        String mainPart = prioritySplit[0].trim();
+        Matcher matcher = DEADLINE_RE.matcher(mainPart);
+        if (!matcher.matches()) {
             throw new WrongDescriptionException("deadline");
         }
+        String description = matcher.group(1).trim();
+        String by = matcher.group(2) == null ? "" : matcher.group(2).trim();
+        int priority = 0;
+        if (prioritySplit.length > 1) {
+            try {
+                priority = Integer.parseInt(prioritySplit[1].trim());
+            } catch (NumberFormatException e) {
+                priority = 0;
+            }
+        }
+        return new AddCommand(new seb.Deadline(description, by, priority));
     }
     
     /**
@@ -92,16 +121,24 @@ public class Parser {
      * @throws NoDateException if the event date/time range is missing
      */
     private Command parseEventCommand(String input) throws WrongDescriptionException, NoDateException {
-        Matcher m = EVENT_RE.matcher(input);
-        if (m.matches()) {
-            if (m.group(2) == null || m.group(3) == null) {
-                throw new NoDateException();
-            } else {
-                return new AddCommand(new Event(m.group(1), m.group(2), m.group(3)));
-            }
-        } else {
+        String[] prioritySplit = input.split("/priority");
+        String mainPart = prioritySplit[0].trim();
+        Matcher matcher = EVENT_RE.matcher(mainPart);
+        if (!matcher.matches()) {
             throw new WrongDescriptionException("event");
         }
+        String description = matcher.group(1).trim();
+        String start = matcher.group(2) == null ? "" : matcher.group(2).trim();
+        String end = matcher.group(3) == null ? "" : matcher.group(3).trim();
+        int priority = 0;
+        if (prioritySplit.length > 1) {
+            try {
+                priority = Integer.parseInt(prioritySplit[1].trim());
+            } catch (NumberFormatException e) {
+                priority = 0;
+            }
+        }
+        return new AddCommand(new seb.Event(description, start, end, priority));
     }
     
     /**
