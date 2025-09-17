@@ -27,7 +27,7 @@ public class Task {
         return this.type;
     }
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
     public void markAsDone() {
         this.isDone = true;
