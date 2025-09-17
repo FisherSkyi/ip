@@ -1,12 +1,5 @@
 # Seb: A Task Management Bot
 
-Declare AI usage: 
-
-| Extent of use                        | Tool                     |  
-|--------------------------------------|--------------------------|
-| Generate All JavaDoc by Autocomplete | Copilot<br/>(Gemini 2.5) |
-| Close GUI when User Input "bye"      | ChatGPT-5                |
-
 ### How to use the priority feature
 1. When adding a task, you can specify its priority by "/priority \<level\>" at the end of your command. For example:
    - `todo add Buy groceries /priority 1`
