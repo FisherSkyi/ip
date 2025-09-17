@@ -8,37 +8,36 @@ public class Task {
     protected boolean isDone;
     protected TaskType type;
     protected int priority = 0; // 0 = no priority, 1 = highest, etc.
-
     public Task(String description, TaskType type) {
         this(description, type, 0);
     }
+    /**
+     * Creates a Task with the given description, type, and priority.
+     * @param description The description of the task.
+     * @param type The type of the task (e.g., TODO, DEADLINE, EVENT).
+     * @param priority The priority level of the task in integer.
+     */
     public Task(String description, TaskType type, int priority) {
         this.description = description;
         this.isDone = false;
         this.type = type;
         this.priority = priority;
     }
-
     public TaskType getType() {
         return this.type;
     }
-
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-
     public void markAsDone() {
         this.isDone = true;
     }
-
     public void unmarkAsDone() {
         this.isDone = false;
     }
-
     public String getDescription() {
         return this.description;
     }
-
     public int getPriority() {
         return this.priority;
     }
@@ -49,13 +48,8 @@ public class Task {
     @Override
     public String toString() {
         String priorityStr = (priority > 0) ? "[P" + priority + "] " : "";
-        if (this.isDone) {
-            return priorityStr + "[X] " + this.description;
-        } else {
-            return priorityStr + "[ ] " + this.description;
-        }
+        return priorityStr + this.getStatusIcon() + this.description;
     }
-    
     @Override
     public boolean equals(Object other) {
         if (this == other) {

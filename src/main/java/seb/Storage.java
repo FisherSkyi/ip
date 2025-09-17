@@ -1,9 +1,9 @@
 package seb;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 
 /**
@@ -11,11 +11,9 @@ import java.io.IOException;
  */
 public class Storage {
     private String filePath;
-    
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-    
     /**
      * Loads tasks from the specified file.
      * @return TaskList containing the loaded tasks.
@@ -23,14 +21,11 @@ public class Storage {
     public TaskList loadTasks() {
         TaskList tasks = new TaskList();
         File file = new File(this.filePath);
-        
         if (!file.exists()) {
             return tasks;
         }
-        
         Deadline.startSilentLoading();
         Event.startSilentLoading();
-        
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -88,7 +83,6 @@ public class Storage {
             throw new InvalidTaskTypeException(type);
         }
     }
-    
     /**
      * Saves the given TaskList to the specified file.
      * @param tasks the TaskList to save
@@ -108,7 +102,8 @@ public class Storage {
                     sb.append(" | ").append(d.dateString).append(" | ").append(d.getPriority());
                 } else if (t instanceof Event) {
                     Event e = (Event) t;
-                    sb.append(" | ").append(e.startString).append(" | ").append(e.endString).append(" | ").append(e.getPriority());
+                    sb.append(" | ").append(e.startString).append(" | ").append(e.endString)
+                            .append(" | ").append(e.getPriority());
                 } else if (t instanceof Todo) {
                     sb.append(" | null | ").append(t.getPriority());
                 }
