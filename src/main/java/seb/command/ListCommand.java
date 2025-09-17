@@ -1,5 +1,9 @@
 package seb.command;
-import seb.*;
+import seb.Storage;
+import seb.TaskList;
+/**
+ * Represents the list command.
+ */
 public class ListCommand implements Command {
     @Override
     public String execute(TaskList tasks, Storage storage) {

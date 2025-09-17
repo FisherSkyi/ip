@@ -1,5 +1,6 @@
 package seb;
-import seb.command.*;
+import seb.command.Command;
+import seb.command.ExitCommand;
 
 /**
  * The main class of the Seb application.
@@ -12,14 +13,17 @@ public class Seb {
     private Ui ui;
     private TaskList tasks;
     private Parser parser;
-    
+    /**
+     * Constructs a Seb application with the specified file path for storage.
+     * It initializes the UI, storage, parser, and loads tasks from the specified file.
+     * @param filePath The file path where tasks are stored.
+     */
     public Seb(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.parser = new Parser();
         tasks = storage.loadTasks();
     }
-    
     /**
      * Runs the main loop of the Seb application.
      * It displays a welcome message, loads tasks from storage.
@@ -33,12 +37,10 @@ public class Seb {
                 String input = this.ui.readCommand().trim();
                 Ui.showLine();
                 Command command = parser.parseCommand(input);
-                
                 String response = command.execute(tasks, storage);
                 if (!response.isEmpty()) {
                     System.out.println(response);
                 }
-                
                 if (command instanceof ExitCommand) {
                     isWorking = false;
                 }
@@ -49,7 +51,6 @@ public class Seb {
             }
         }
     }
-    
     public String getResponse(String userInput) throws UnknownInputException, WrongDescriptionException {
         try {
             String input = userInput.trim();
@@ -61,7 +62,6 @@ public class Seb {
             return error;
         }
     }
-    
     public static void main(String[] args) {
         new Seb("data/seb.txt").run();
     }

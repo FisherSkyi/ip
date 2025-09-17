@@ -23,21 +23,17 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    
     private Seb seb;
-    
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image sebImage = new Image(this.getClass().getResourceAsStream("/images/DaSeb.png"));
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
-    
     /** Injects the Duke instance */
     public void setDuke(Seb d) {
         seb = d;
     }
-    
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -64,7 +60,6 @@ public class MainWindow extends AnchorPane {
                 stage.close();
                 javafx.application.Platform.exit(); // shut down JavaFX runtime
             });
-            
             delay.play();
         }
     }

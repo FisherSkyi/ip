@@ -1,11 +1,13 @@
 package seb.command;
-import seb.*;
+import seb.Storage;
+import seb.Task;
+import seb.TaskList;
+
 /**
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand implements Command {
     private final int index;
-    
     public DeleteCommand(int index) {
         this.index = index;
     }
@@ -21,10 +23,8 @@ public class DeleteCommand implements Command {
         Task t = tasks.getTasks(index);
         tasks.deleteTasks(index);
         storage.saveTasks(tasks);
-        
-        return "     Noted. I've removed this task:\n" +
-               "       " + t.toString() + "\n" +
-               "     Now you have " + tasks.size() + " tasks in the list.";
+        return "     Noted. I've removed this task:\n"
+                + "       " + t.toString() + "\n"
+                + "     Now you have " + tasks.size() + " tasks in the list.";
     }
 }
-

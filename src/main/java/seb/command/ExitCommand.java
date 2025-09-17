@@ -1,5 +1,6 @@
 package seb.command;
-import seb.*;
+import seb.Storage;
+import seb.TaskList;
 /**
  * Represents the exit command.
  */

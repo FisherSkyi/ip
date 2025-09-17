@@ -1,13 +1,26 @@
 package seb;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import seb.command.*;
 
+import seb.command.AddCommand;
+import seb.command.Command;
+import seb.command.DeleteCommand;
+import seb.command.ExitCommand;
+import seb.command.FindCommand;
+import seb.command.ListCommand;
+import seb.command.MarkCommand;
+import seb.command.NoOpCommand;
+import seb.command.UnmarkCommand;
+/**
+ * Parses user input and returns the corresponding Command object.
+ */
 public class Parser {
     // task must not be empty, can contain spaces, must not start with space, time/date can be empty
     private static final Pattern TODO_RE = Pattern.compile("^todo\\s+(\\S.*)$");
     private static final Pattern DEADLINE_RE = Pattern.compile("^deadline\\s+(\\S.*)\\s+/by(?:\\s+(\\S.*))?$");
-    private static final Pattern EVENT_RE = Pattern.compile("^event\\s+(\\S.*)\\s+/from(?:\\s+(\\S.*))?\\s+/to(?:\\s+(\\S.*))?$");
+    private static final Pattern EVENT_RE =
+            Pattern.compile("^event\\s+(\\S.*)\\s+/from(?:\\s+(\\S.*))?\\s+/to(?:\\s+(\\S.*))?$");
     // must be number after mark, unmark, delete
     private static final Pattern MARK_RE = Pattern.compile("^mark\\s+(\\d+)$");
     private static final Pattern UNMARK_RE = Pattern.compile("^unmark\\s+(\\d+)$");
@@ -25,7 +38,6 @@ public class Parser {
      */
     public Command parseCommand(String input) throws WrongDescriptionException, NoDateException, UnknownInputException {
         String trimmedInput = input.trim();
-        
         if (trimmedInput.equals("bye")) {
             return new ExitCommand();
         } else if (trimmedInput.equals("list")) {
@@ -85,7 +97,6 @@ public class Parser {
         }
         return new AddCommand(new seb.Todo(description, priority));
     }
-    
     /**
      * Parses a deadline command and returns the corresponding AddCommand object.
      * @param input the user input string
@@ -112,7 +123,6 @@ public class Parser {
         }
         return new AddCommand(new seb.Deadline(description, by, priority));
     }
-    
     /**
      * Parses an event command and returns the corresponding AddCommand object.
      * @param input the user input string
@@ -140,7 +150,6 @@ public class Parser {
         }
         return new AddCommand(new seb.Event(description, start, end, priority));
     }
-    
     /**
      * Parses a mark command and returns the corresponding MarkCommand object.
      * @param input the user input string
@@ -155,7 +164,6 @@ public class Parser {
             throw new IllegalArgumentException("Invalid mark command format");
         }
     }
-    
     /**
      * Parses an unmark command and returns the corresponding UnmarkCommand object.
      * @param input the user input string
@@ -170,7 +178,6 @@ public class Parser {
             throw new IllegalArgumentException("Invalid unmark command format");
         }
     }
-    
     /**
      * Parses a find command and returns the corresponding FindCommand object.
      * @param input the user input string
@@ -185,7 +192,6 @@ public class Parser {
             throw new IllegalArgumentException("Invalid find command format");
         }
     }
-    
     /**
      * Parses a delete command and returns the corresponding DeleteCommand object.
      * @param input the user input string

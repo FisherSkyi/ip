@@ -1,17 +1,15 @@
 package seb.command;
+import java.util.ArrayList;
 
 import seb.Storage;
 import seb.Task;
 import seb.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks by keyword.
  */
 public class FindCommand implements Command {
     private final String keyword;
-
     /**
      * Creates a FindCommand
      * @param keyword The keyword to search for.
@@ -19,7 +17,6 @@ public class FindCommand implements Command {
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
-
     /**
      * Executes the command to find tasks.
      * @param tasks   The TaskList to search in.
@@ -32,7 +29,6 @@ public class FindCommand implements Command {
         if (foundTasks.isEmpty()) {
             return "     No tasks found matching your search.";
         }
-
         StringBuilder sb = new StringBuilder("     Here are the matching tasks in your list:\n");
         for (int i = 0; i < foundTasks.size(); i++) {
             sb.append("       ").append(i + 1).append(".").append(foundTasks.get(i).toString());

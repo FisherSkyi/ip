@@ -13,13 +13,20 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
+/**
+ * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
+ * containing text from the speaker.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-    
+    /**
+     * Constructor for DialogBox.
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image of user or Seb to be displayed in the dialog box.
+     */
     public DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -29,26 +36,21 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         dialog.setText(text);
         displayPicture.setImage(img);
     }
-    
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
     }
-    
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
-    
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
-
 }
