@@ -6,10 +6,9 @@ import java.time.format.DateTimeFormatter;
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
+    private static boolean isSilentLoading = false; // Flag for silent loading
     protected LocalDateTime dateTime;
     protected String dateString;
-    private static boolean isSilentLoading = false; // Flag for silent loading
-    
     /**
      * Creates a Deadline task.
      * @param description the description of the task
@@ -18,7 +17,6 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description, TaskType.DEADLINE);
         this.dateString = by;
-        
         try {
             this.dateTime = TimeParser.parseDateTime(by.trim());
         } catch (IllegalArgumentException e) {
@@ -28,11 +26,15 @@ public class Deadline extends Task {
             }
         }
     }
-    
+    /**
+     * initialize deadline with priority
+     * @param description
+     * @param by
+     * @param priority
+     */
     public Deadline(String description, String by, int priority) {
         super(description, TaskType.DEADLINE, priority);
         this.dateString = by;
-        
         try {
             this.dateTime = TimeParser.parseDateTime(by.trim());
         } catch (IllegalArgumentException e) {
@@ -42,7 +44,10 @@ public class Deadline extends Task {
             }
         }
     }
-    
+    /**
+     * Returns a string representation of the Deadline task.
+     * @return the string representation
+     */
     @Override
     public String toString() {
         String result;
@@ -57,14 +62,12 @@ public class Deadline extends Task {
         }
         return result;
     }
-    
     /**
      * Starts silent loading mode to suppress error messages during loading.
      */
     public static void startSilentLoading() {
         isSilentLoading = true;
     }
-    
     /**
      * Ends silent loading mode.
      */

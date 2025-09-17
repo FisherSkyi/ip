@@ -6,12 +6,11 @@ import java.time.format.DateTimeFormatter;
  * Represents a task with a start and end date/time.
  */
 public class Event extends Task {
+    private static boolean isSilentLoading = false; // Flag for silent loading
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
     protected String startString;
     protected String endString;
-    private static boolean isSilentLoading = false; // Flag for silent loading
-    
     /**
      * Creates an Event task.
      * @param description the description of the task
@@ -22,7 +21,6 @@ public class Event extends Task {
         super(description, TaskType.EVENT);
         this.startString = start; // Always store the original strings
         this.endString = end;
-        
         try {
             this.startDateTime = TimeParser.parseDateTime(start.trim());
             this.endDateTime = TimeParser.parseDateTime(end.trim());
@@ -33,12 +31,17 @@ public class Event extends Task {
             }
         }
     }
-    
+    /**
+     * initialize event with priority
+     * @param description
+     * @param start
+     * @param end
+     * @param priority
+     */
     public Event(String description, String start, String end, int priority) {
         super(description, TaskType.EVENT, priority);
         this.startString = start; // Always store the original strings
         this.endString = end;
-        
         try {
             this.startDateTime = TimeParser.parseDateTime(start.trim());
             this.endDateTime = TimeParser.parseDateTime(end.trim());
@@ -49,7 +52,6 @@ public class Event extends Task {
             }
         }
     }
-    
     /**
      * Returns a string representation of the Event task.
      * @return the string representation
@@ -59,36 +61,34 @@ public class Event extends Task {
         String result;
         if (startDateTime == null && endDateTime == null) {
             // If parsing failed, just use the original strings
-            result =  "[E]" + super.toString() + " (from: " + startString + " to: " + endString + ")";
+            result = "[E]" + super.toString() + " (from: " + startString + " to: " + endString + ")";
         } else if (startDateTime == null) {
             // If only start parsing failed
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            result = "[E]" + super.toString() + " (from: " + startString +
-                   " to: " + endDateTime.format(formatter) + ")";
+            result = "[E]" + super.toString() + " (from: " + startString
+                    + " to: " + endDateTime.format(formatter) + ")";
         } else if (endDateTime == null) {
             // If only end parsing failed
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            result = "[E]" + super.toString() + " (from: " + startDateTime.format(formatter) +
-                   " to: " + endString + ")";
+            result = "[E]" + super.toString() + " (from: " + startDateTime.format(formatter)
+                    + " to: " + endString + ")";
         } else {
             // If parsing succeeded, format the dates nicely
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            result = "[E]" + super.toString() + " (from: " + startDateTime.format(formatter) +
-                   " to: " + endDateTime.format(formatter) + ")";
+            result = "[E]" + super.toString() + " (from: " + startDateTime.format(formatter)
+                    + " to: " + endDateTime.format(formatter) + ")";
         }
         if (priority > 0) {
             result = " [P" + priority + "] " + result;
         }
         return result;
     }
-    
     /**
      * Starts silent loading mode to suppress error messages during loading.
      */
     public static void startSilentLoading() {
         isSilentLoading = true;
     }
-    
     /**
      * Ends silent loading mode.
      */
