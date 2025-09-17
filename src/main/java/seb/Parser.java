@@ -8,6 +8,7 @@ import seb.command.Command;
 import seb.command.DeleteCommand;
 import seb.command.ExitCommand;
 import seb.command.FindCommand;
+import seb.command.HiCommand;
 import seb.command.ListCommand;
 import seb.command.MarkCommand;
 import seb.command.NoOpCommand;
@@ -38,10 +39,12 @@ public class Parser {
      */
     public Command parseCommand(String input) throws WrongDescriptionException, NoDateException, UnknownInputException {
         String trimmedInput = input.trim();
-        if (trimmedInput.equals("bye")) {
+        if (trimmedInput.equalsIgnoreCase("bye")) {
             return new ExitCommand();
-        } else if (trimmedInput.equals("list")) {
+        } else if (trimmedInput.equalsIgnoreCase("list")) {
             return new ListCommand();
+        } else if (trimmedInput.equalsIgnoreCase("hi") || trimmedInput.equalsIgnoreCase("hello")) {
+            return new HiCommand();
         } else if (trimmedInput.startsWith("todo")) {
             return parseTodoCommand(trimmedInput);
         } else if (trimmedInput.startsWith("deadline")) {

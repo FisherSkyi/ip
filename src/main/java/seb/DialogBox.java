@@ -70,7 +70,7 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getSebDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

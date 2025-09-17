@@ -30,12 +30,12 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
-    /** Injects the Duke instance */
-    public void setDuke(Seb d) {
+    /** Injects the Seb instance */
+    public void setSeb(Seb d) {
         seb = d;
     }
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Seb's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -45,12 +45,12 @@ public class MainWindow extends AnchorPane {
             String sebText = seb.getResponse(userInput.getText());
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userText, userImage),
-                    DialogBox.getDukeDialog(sebText, sebImage)
+                    DialogBox.getSebDialog(sebText, sebImage)
             );
             userInput.clear();
         } else {
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog("Bye! See you soon.", sebImage)
+                    DialogBox.getSebDialog("Bye! See you soon.", sebImage)
             );
             userInput.setDisable(true);
             sendButton.setDisable(true);

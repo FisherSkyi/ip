@@ -45,12 +45,12 @@ public class Main extends Application {
             String sebText = seb.getResponse(userInput.getText());
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userText, userImage),
-                    DialogBox.getDukeDialog(sebText, sebImage)
+                    DialogBox.getSebDialog(sebText, sebImage)
             );
             userInput.clear();
         } else {
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog("Bye! See you soon.", sebImage)
+                    DialogBox.getSebDialog("Bye! See you soon.", sebImage)
             );
             userInput.setDisable(true);
             sendButton.setDisable(true);
@@ -72,7 +72,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinWidth(220);
             stage.setMinHeight(417);
-            fxmlLoader.<MainWindow>getController().setDuke(seb);
+            fxmlLoader.<MainWindow>getController().setSeb(seb);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
