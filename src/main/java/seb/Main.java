@@ -60,7 +60,6 @@ public class Main extends Application {
                 stage.close();
                 javafx.application.Platform.exit(); // shut down JavaFX runtime
             });
-
             delay.play();
         }
     }
@@ -71,6 +70,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setMinWidth(220);
+            stage.setMinHeight(417);
             fxmlLoader.<MainWindow>getController().setDuke(seb);
             stage.show();
         } catch (IOException e) {
