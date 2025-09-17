@@ -10,7 +10,6 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-    
     /**
      * Reads a command from the user.
      * @return the command as a string
@@ -18,22 +17,22 @@ public class Ui {
     public String readCommand() {
         return scanner.nextLine();
     }
-
+    /**
+     * Displays a welcome message to the user.
+     */
     public static void showWelcome() {
-        System.out.println("    ____________________________________________________________\n" +
-                           "     Hello! I'm Seb\n" +
-                           "     What can I do for you?\n" +
-                           "    ____________________________________________________________");
+        System.out.println(
+                  "    ____________________________________________________________\n"
+                + "     Hello! I'm Seb\n"
+                + "     What can I do for you?\n"
+                + "    ____________________________________________________________");
     }
-    
     public static void showLine() {
         System.out.println("    ____________________________________________________________");
     }
-    
     public static void showError(Exception e) {
         System.out.println(e.getMessage());
     }
-
     /**
      * Returns a message indicating the priority has been set for a task.
      * @param task The task whose priority was set.
