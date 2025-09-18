@@ -1,5 +1,6 @@
 package seb.command;
 
+import seb.PriorityType;
 import seb.Storage;
 import seb.TaskList;
 
@@ -8,14 +9,14 @@ import seb.TaskList;
  */
 public class SetPriorityCommand implements Command {
     private final int index;
-    private final int priority;
+    private final PriorityType priority;
 
     /**
      * Creates a SetPriorityCommand.
      * @param index The index of the task (1-based from user input).
      * @param priority The new priority value.
      */
-    public SetPriorityCommand(int index, int priority) {
+    public SetPriorityCommand(int index, PriorityType priority) {
         this.index = index - 1;
         this.priority = priority;
     }

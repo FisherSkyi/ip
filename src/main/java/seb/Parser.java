@@ -12,6 +12,7 @@ import seb.command.HiCommand;
 import seb.command.ListCommand;
 import seb.command.MarkCommand;
 import seb.command.NoOpCommand;
+import seb.command.SetPriorityCommand;
 import seb.command.UnmarkCommand;
 /**
  * Parses user input and returns the corresponding Command object.
@@ -27,7 +28,7 @@ public class Parser {
     private static final Pattern UNMARK_RE = Pattern.compile("^unmark\\s+(\\d+)$");
     private static final Pattern DELETE_RE = Pattern.compile("^delete\\s+(\\d+)$");
     private static final Pattern FIND_RE = Pattern.compile("^find\\s+(\\S.*)$");
-    private static final Pattern PRIORITY_SET_RE = Pattern.compile("^priority\\s+(\\d+)\\s+(\\d+)$");
+    private static final Pattern PRIORITY_SET_RE = Pattern.compile("^priority\\s+(\\d+)\\s+(\\S+)$");
 
     /**
      * Parses user input and returns the corresponding Command object.
@@ -71,8 +72,21 @@ public class Parser {
         Matcher matcher = PRIORITY_SET_RE.matcher(input);
         if (matcher.matches()) {
             int index = Integer.parseInt(matcher.group(1));
-            int priority = Integer.parseInt(matcher.group(2));
-            return new seb.command.SetPriorityCommand(index, priority);
+            PriorityType priority;
+            String priorityStr = matcher.group(2);
+            try {
+                // Try to parse as integer first
+                int priorityInt = Integer.parseInt(priorityStr);
+                priority = PriorityType.fromInt(priorityInt);
+            } catch (NumberFormatException e) {
+                // If not integer, try to parse as enum name
+                try {
+                    priority = PriorityType.valueOf(priorityStr.toUpperCase());
+                } catch (IllegalArgumentException ex) {
+                    priority = PriorityType.UNSPECIFIEDP;
+                }
+            }
+            return new SetPriorityCommand(index, priority);
         }
         return new NoOpCommand();
     }
@@ -90,15 +104,15 @@ public class Parser {
             throw new WrongDescriptionException("todo");
         }
         String description = matcher.group(1).trim();
-        int priority = 0;
+        PriorityType priority = PriorityType.UNSPECIFIEDP;
         if (parts.length > 1) {
             try {
-                priority = Integer.parseInt(parts[1].trim());
+                priority = PriorityType.fromInt(Integer.parseInt(parts[1].trim()));
             } catch (NumberFormatException e) {
-                priority = 0;
+                priority = PriorityType.UNSPECIFIEDP;
             }
         }
-        return new AddCommand(new seb.Todo(description, priority));
+        return new AddCommand(new Todo(description, priority));
     }
     /**
      * Parses a deadline command and returns the corresponding AddCommand object.
@@ -116,15 +130,15 @@ public class Parser {
         }
         String description = matcher.group(1).trim();
         String by = matcher.group(2) == null ? "" : matcher.group(2).trim();
-        int priority = 0;
+        PriorityType priority = PriorityType.UNSPECIFIEDP;
         if (prioritySplit.length > 1) {
             try {
-                priority = Integer.parseInt(prioritySplit[1].trim());
+                priority = PriorityType.fromInt(Integer.parseInt(prioritySplit[1].trim()));
             } catch (NumberFormatException e) {
-                priority = 0;
+                priority = PriorityType.UNSPECIFIEDP;
             }
         }
-        return new AddCommand(new seb.Deadline(description, by, priority));
+        return new AddCommand(new Deadline(description, by, priority));
     }
     /**
      * Parses an event command and returns the corresponding AddCommand object.
@@ -143,15 +157,15 @@ public class Parser {
         String description = matcher.group(1).trim();
         String start = matcher.group(2) == null ? "" : matcher.group(2).trim();
         String end = matcher.group(3) == null ? "" : matcher.group(3).trim();
-        int priority = 0;
+        PriorityType priority = PriorityType.UNSPECIFIEDP;
         if (prioritySplit.length > 1) {
             try {
-                priority = Integer.parseInt(prioritySplit[1].trim());
+                priority = PriorityType.fromInt(Integer.parseInt(prioritySplit[1].trim()));
             } catch (NumberFormatException e) {
-                priority = 0;
+                priority = PriorityType.UNSPECIFIEDP;
             }
         }
-        return new AddCommand(new seb.Event(description, start, end, priority));
+        return new AddCommand(new Event(description, start, end, priority));
     }
     /**
      * Parses a mark command and returns the corresponding MarkCommand object.

@@ -8,7 +8,7 @@ public class Todo extends Task {
         super(description, TaskType.TODO);
     }
 
-    public Todo(String description, int priority) {
+    public Todo(String description, PriorityType priority) {
         super(description, TaskType.TODO, priority);
     }
 

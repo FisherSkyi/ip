@@ -1,5 +1,6 @@
 package seb;
 
+
 /**
  * Represents a task with a description, completion status, and type.
  */
@@ -7,9 +8,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType type;
-    protected int priority = 0; // 0 = no priority, 1 = highest, etc.
+    protected PriorityType priority = PriorityType.LOW; // 0 = no priority, 1 = highest, etc.
     public Task(String description, TaskType type) {
-        this(description, type, 0);
+        this(description, type, PriorityType.UNSPECIFIEDP);
     }
     /**
      * Creates a Task with the given description, type, and priority.
@@ -17,7 +18,7 @@ public class Task {
      * @param type The type of the task (e.g., TODO, DEADLINE, EVENT).
      * @param priority The priority level of the task in integer.
      */
-    public Task(String description, TaskType type, int priority) {
+    public Task(String description, TaskType type, PriorityType priority) {
         this.description = description;
         this.isDone = false;
         this.type = type;
@@ -38,16 +39,22 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
-    public int getPriority() {
+    public PriorityType getPriority() {
         return this.priority;
     }
-    public void setPriority(int priority) {
+    public void setPriority(PriorityType priority) {
         this.priority = priority;
     }
 
     @Override
     public String toString() {
-        String priorityStr = (priority > 0) ? "[P" + priority + "] " : "";
+        String priorityStr = switch (priority) {
+            case HIGH -> "HIGH";
+            case LOW -> "LOW";
+            case MEDIUM -> "MEDIUM";
+            case UNSPECIFIEDP -> "UNSPECIFIED";
+        };
+        priorityStr = "[P" + priorityStr + "] ";
         return priorityStr + this.getStatusIcon() + this.description;
     }
     @Override

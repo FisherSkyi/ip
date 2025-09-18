@@ -38,7 +38,7 @@ public class Event extends Task {
      * @param end
      * @param priority
      */
-    public Event(String description, String start, String end, int priority) {
+    public Event(String description, String start, String end, PriorityType priority) {
         super(description, TaskType.EVENT, priority);
         this.startString = start; // Always store the original strings
         this.endString = end;

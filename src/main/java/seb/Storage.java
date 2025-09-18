@@ -48,7 +48,15 @@ public class Storage {
         }
         return tasks;
     }
-
+    /**
+     * Checks the task type and creates the corresponding task object.
+     * @param type the type of the task (TODO, DEADLINE, EVENT)
+     * @param description the description of the task
+     * @param isDone whether the task is marked as done
+     * @param parts the parts of the line split by "| "
+     * @param tasks the TaskList to add the created task to
+     * @throws InvalidTaskTypeException if the task type is invalid
+     */
     private static void checkType(String type, String description, boolean isDone, String[] parts, TaskList tasks)
             throws InvalidTaskTypeException {
         switch (type) {

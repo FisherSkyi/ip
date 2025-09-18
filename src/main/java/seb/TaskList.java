@@ -40,7 +40,7 @@ public class TaskList {
      * @param index The index of the task (0-based).
      * @param priority The new priority value.
      */
-    public void setPriority(int index, int priority) {
+    public void setPriority(int index, PriorityType priority) {
         this.tasks.get(index).setPriority(priority);
     }
 }

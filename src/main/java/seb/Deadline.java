@@ -32,7 +32,7 @@ public class Deadline extends Task {
      * @param by
      * @param priority
      */
-    public Deadline(String description, String by, int priority) {
+    public Deadline(String description, String by, PriorityType priority) {
         super(description, TaskType.DEADLINE, priority);
         this.dateString = by;
         try {
