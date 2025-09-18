@@ -61,8 +61,8 @@ public class Storage {
             throws InvalidTaskTypeException {
         switch (type) {
         case "TODO":
-            PriorityType todoPriority = parts.length > 4
-                    ? PriorityType.fromInt(Integer.parseInt(parts[4].trim()))
+            PriorityType todoPriority = parts.length > 3
+                    ? PriorityType.fromInt(Integer.parseInt(parts[3].trim()))
                     : PriorityType.UNSPECIFIEDP;
             Task t = new Todo(description, todoPriority);
             if (isDone) {
@@ -84,8 +84,8 @@ public class Storage {
         case "EVENT":
             String start = parts.length > 3 ? parts[3].trim() : "";
             String end = parts.length > 4 ? parts[4].trim() : "";
-            PriorityType eventPriority = parts.length > 4
-                    ? PriorityType.fromInt(Integer.parseInt(parts[4].trim()))
+            PriorityType eventPriority = parts.length > 5
+                    ? PriorityType.fromInt(Integer.parseInt(parts[5].trim()))
                     : PriorityType.UNSPECIFIEDP;
             Task e = new Event(description, start, end, eventPriority);
             if (isDone) {
@@ -113,13 +113,13 @@ public class Storage {
                 sb.append(t.getDescription());
                 if (t instanceof Deadline) {
                     Deadline d = (Deadline) t;
-                    sb.append(" | ").append(d.dateString).append(" | ").append(d.getPriority());
+                    sb.append(" | ").append(d.dateString).append(" | ").append(PriorityType.toInt(d.getPriority()));
                 } else if (t instanceof Event) {
                     Event e = (Event) t;
                     sb.append(" | ").append(e.startString).append(" | ").append(e.endString)
-                            .append(" | ").append(e.getPriority());
+                            .append(" | ").append(PriorityType.toInt(e.getPriority()));
                 } else if (t instanceof Todo) {
-                    sb.append(" | null | ").append(t.getPriority());
+                    sb.append(" | null | ").append(PriorityType.toInt(t.getPriority()));
                 }
                 bw.write(sb.toString());
                 bw.newLine();

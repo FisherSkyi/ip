@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
             );
             userInput.setDisable(true);
             sendButton.setDisable(true);
-            PauseTransition delay = new PauseTransition(Duration.millis(400));
+            PauseTransition delay = new PauseTransition(Duration.millis(1000));
             delay.setOnFinished(e -> {
                 Stage stage = (Stage) userInput.getScene().getWindow();
                 stage.close();

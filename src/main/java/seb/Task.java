@@ -45,14 +45,13 @@ public class Task {
     public void setPriority(PriorityType priority) {
         this.priority = priority;
     }
-
     @Override
     public String toString() {
         String priorityStr = switch (priority) {
-            case HIGH -> "HIGH";
-            case LOW -> "LOW";
-            case MEDIUM -> "MEDIUM";
-            case UNSPECIFIEDP -> "UNSPECIFIED";
+        case HIGH -> "HIGH";
+        case LOW -> "LOW";
+        case MEDIUM -> "MEDIUM";
+        case UNSPECIFIEDP -> "UNSPECIFIED";
         };
         priorityStr = "[" + priorityStr + "] ";
         return priorityStr + this.getStatusIcon() + this.description;

@@ -23,13 +23,12 @@ public class Parser {
     private static final Pattern DEADLINE_RE = Pattern.compile("^deadline\\s+(\\S.*)\\s+/by(?:\\s+(\\S.*))?$");
     private static final Pattern EVENT_RE =
             Pattern.compile("^event\\s+(\\S.*)\\s+/from(?:\\s+(\\S.*))?\\s+/to(?:\\s+(\\S.*))?$");
-    // must be number after mark, unmark, delete
+    // must be number (index of the task) after mark, unmark, delete
     private static final Pattern MARK_RE = Pattern.compile("^mark\\s+(\\d+)$");
     private static final Pattern UNMARK_RE = Pattern.compile("^unmark\\s+(\\d+)$");
     private static final Pattern DELETE_RE = Pattern.compile("^delete\\s+(\\d+)$");
     private static final Pattern FIND_RE = Pattern.compile("^find\\s+(\\S.*)$");
     private static final Pattern PRIORITY_SET_RE = Pattern.compile("^priority\\s+(\\d+)\\s+(\\S+)$");
-
     /**
      * Parses user input and returns the corresponding Command object.
      * @param input the user input string
@@ -44,7 +43,8 @@ public class Parser {
             return new ExitCommand();
         } else if (trimmedInput.equalsIgnoreCase("list")) {
             return new ListCommand();
-        } else if (trimmedInput.equalsIgnoreCase("hi") || trimmedInput.equalsIgnoreCase("hello")) {
+        } else if (trimmedInput.equalsIgnoreCase("hi")
+                || trimmedInput.equalsIgnoreCase("hello")) {
             return new HiCommand();
         } else if (trimmedInput.startsWith("todo")) {
             return parseTodoCommand(trimmedInput);
@@ -83,6 +83,7 @@ public class Parser {
                 try {
                     priority = PriorityType.valueOf(priorityStr.toUpperCase());
                 } catch (IllegalArgumentException ex) {
+                    System.out.println("Invalid priority value. Setting to UNSPECIFIEDP.");
                     priority = PriorityType.UNSPECIFIEDP;
                 }
             }
@@ -104,11 +105,12 @@ public class Parser {
             throw new WrongDescriptionException("todo");
         }
         String description = matcher.group(1).trim();
-        PriorityType priority = PriorityType.UNSPECIFIEDP;
+        PriorityType priority = null;
         if (parts.length > 1) {
             try {
                 priority = PriorityType.fromInt(Integer.parseInt(parts[1].trim()));
             } catch (NumberFormatException e) {
+                System.out.println("Invalid priority value. Setting to UNSPECIFIEDP.");
                 priority = PriorityType.UNSPECIFIEDP;
             }
         }
@@ -135,6 +137,7 @@ public class Parser {
             try {
                 priority = PriorityType.fromInt(Integer.parseInt(prioritySplit[1].trim()));
             } catch (NumberFormatException e) {
+                System.out.println("Invalid priority value. Setting to UNSPECIFIEDP.");
                 priority = PriorityType.UNSPECIFIEDP;
             }
         }
