@@ -5,14 +5,15 @@
    - `todo add Buy groceries /priority 1`
    - `deadline add Submit report /by 2025-10-01 /priority 2`
    - `everyday add Exercise /from 2025-10-01 /to 2025-10-05 /priority 2`
-   > [!INFORMATION]
-    > Priority levels:
-    > - 3: HIGH
-    > - 2: MEDIUM
-    > - 1: LOW
-    > - Any other value: UNSPECIFIED
+
 2. set priority of existing task by "priority \<index\> \<level\>"
 
+> [!INFORMATION]
+> Priority levels:
+> - 3: HIGH
+> - 2: MEDIUM
+> - 1: LOW
+> - Any other value: UNSPECIFIED
 
 > [!IMPORTANT]
 > priority value must be 1, 2 or 3 to be valid, anything else will be set to "UNSPECIFIED" by default.
