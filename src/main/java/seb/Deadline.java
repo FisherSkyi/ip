@@ -1,5 +1,5 @@
 package seb;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private static boolean isSilentLoading = false; // Flag for silent loading
-    protected LocalDateTime dateTime;
+    protected LocalDate date;
     protected String dateString;
     /**
      * Creates a Deadline task.
@@ -18,7 +18,7 @@ public class Deadline extends Task {
         super(description, TaskType.DEADLINE);
         this.dateString = by;
         try {
-            this.dateTime = TimeParser.parseDateTime(by.trim());
+            this.date = TimeParser.parseDateTime(by.trim());
         } catch (IllegalArgumentException e) {
             // Only show error if not silent loading and not "null"
             if (!isSilentLoading && !by.equals("null")) {
@@ -36,7 +36,7 @@ public class Deadline extends Task {
         super(description, TaskType.DEADLINE, priority);
         this.dateString = by;
         try {
-            this.dateTime = TimeParser.parseDateTime(by.trim());
+            this.date = TimeParser.parseDateTime(by.trim());
         } catch (IllegalArgumentException e) {
             // Only show error if not silent loading and not "null"
             if (!isSilentLoading && !by.equals("null")) {
@@ -51,11 +51,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String result;
-        if (dateTime == null) {
+        if (date == null) {
             result = "[D]" + super.toString() + " (by: " + dateString + ")";
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            result = "[D]" + super.toString() + " (by: " + dateTime.format(formatter) + ")";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            result = "[D]" + super.toString() + " (by: " + date.format(formatter) + ")";
         }
         if (!priority.equals(PriorityType.UNSPECIFIEDP)) {
             result = "[" + priority + "] " + result;

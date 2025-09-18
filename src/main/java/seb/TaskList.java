@@ -1,6 +1,5 @@
 package seb;
 import java.util.ArrayList;
-
 /**
  * Represents a list of tasks.
  */

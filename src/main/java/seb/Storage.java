@@ -24,18 +24,21 @@ public class Storage {
         if (!file.exists()) {
             return tasks;
         }
+        // Enable silent loading mode for Deadline and Event classes
         Deadline.startSilentLoading();
         Event.startSilentLoading();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\\| ");
+                String[] parts = line.split("\\|\\s*");
+                // Basic validation, type, isDone, description must be present
                 String type = parts[0].trim();
                 boolean isDone = parts[1].trim().equals("1");
                 String description = parts[2].trim();
                 try {
                     checkType(type, description, isDone, parts, tasks);
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                     System.err.println("Warning: Problem loading task: " + line);
                 }
             }
@@ -87,11 +90,11 @@ public class Storage {
             PriorityType eventPriority = parts.length > 5
                     ? PriorityType.fromInt(Integer.parseInt(parts[5].trim()))
                     : PriorityType.UNSPECIFIEDP;
-            Task e = new Event(description, start, end, eventPriority);
+            Task event = new Event(description, start, end, eventPriority);
             if (isDone) {
-                e.markAsDone();
+                event.markAsDone();
             }
-            tasks.addTasks(e);
+            tasks.addTasks(event);
             break;
         default:
             throw new InvalidTaskTypeException(type);
