@@ -8,7 +8,7 @@
 
 2. set priority of existing task by "priority \<index\> \<level\>"
 
-> [!INFORMATION]
+> [!NOTE]
 > Priority levels:
 > - 3: HIGH
 > - 2: MEDIUM
