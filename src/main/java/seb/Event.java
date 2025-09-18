@@ -78,8 +78,8 @@ public class Event extends Task {
             result = "[E]" + super.toString() + " (from: " + startDateTime.format(formatter)
                     + " to: " + endDateTime.format(formatter) + ")";
         }
-        if (priority > 0) {
-            result = " [P" + priority + "] " + result;
+        if (!priority.equals(PriorityType.UNSPECIFIEDP)) {
+            result = " [" + priority + "] " + result;
         }
         return result;
     }

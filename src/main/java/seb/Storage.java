@@ -61,7 +61,9 @@ public class Storage {
             throws InvalidTaskTypeException {
         switch (type) {
         case "TODO":
-            int todoPriority = parts.length > 4 ? Integer.parseInt(parts[4].trim()) : 0;
+            PriorityType todoPriority = parts.length > 4
+                    ? PriorityType.fromInt(Integer.parseInt(parts[4].trim()))
+                    : PriorityType.UNSPECIFIEDP;
             Task t = new Todo(description, todoPriority);
             if (isDone) {
                 t.markAsDone();
@@ -70,7 +72,9 @@ public class Storage {
             break;
         case "DEADLINE":
             String by = parts.length > 3 ? parts[3].trim() : "";
-            int deadlinePriority = parts.length > 4 ? Integer.parseInt(parts[4].trim()) : 0;
+            PriorityType deadlinePriority = parts.length > 4
+                    ? PriorityType.fromInt(Integer.parseInt(parts[4].trim()))
+                    : PriorityType.UNSPECIFIEDP;
             Task d = new Deadline(description, by, deadlinePriority);
             if (isDone) {
                 d.markAsDone();
@@ -80,7 +84,9 @@ public class Storage {
         case "EVENT":
             String start = parts.length > 3 ? parts[3].trim() : "";
             String end = parts.length > 4 ? parts[4].trim() : "";
-            int eventPriority = parts.length > 5 ? Integer.parseInt(parts[5].trim()) : 0;
+            PriorityType eventPriority = parts.length > 4
+                    ? PriorityType.fromInt(Integer.parseInt(parts[4].trim()))
+                    : PriorityType.UNSPECIFIEDP;
             Task e = new Event(description, start, end, eventPriority);
             if (isDone) {
                 e.markAsDone();

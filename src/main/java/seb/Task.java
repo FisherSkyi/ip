@@ -54,7 +54,7 @@ public class Task {
             case MEDIUM -> "MEDIUM";
             case UNSPECIFIEDP -> "UNSPECIFIED";
         };
-        priorityStr = "[P" + priorityStr + "] ";
+        priorityStr = "[" + priorityStr + "] ";
         return priorityStr + this.getStatusIcon() + this.description;
     }
     @Override
