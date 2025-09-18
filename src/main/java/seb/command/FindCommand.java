@@ -1,10 +1,10 @@
 package seb.command;
+
 import java.util.ArrayList;
 
 import seb.Storage;
 import seb.Task;
 import seb.TaskList;
-
 /**
  * Represents a command to find tasks by keyword.
  */

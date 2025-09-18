@@ -12,9 +12,9 @@ public class MarkCommand implements Command {
     /**
      * Executes the mark command by marking the task at the specified index as done
      * and saving the updated task list to storage.
-     * @param tasks
-     * @param storage
-     * @return
+     * @param tasks task list
+     * @param storage storage
+     * @return response message
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {

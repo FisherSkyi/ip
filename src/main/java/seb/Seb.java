@@ -1,18 +1,16 @@
 package seb;
 import seb.command.Command;
 import seb.command.ExitCommand;
-
 /**
  * The main class of the Seb application.
  * It initializes the application, loads tasks from storage,
  * and processes user commands in a loop until the user exits.
  */
 public class Seb {
-    private final String name = "Seb";
-    private Storage storage;
-    private Ui ui;
-    private TaskList tasks;
-    private Parser parser;
+    private final Storage storage;
+    private final Ui ui;
+    private final TaskList tasks;
+    private final Parser parser;
     /**
      * Constructs a Seb application with the specified file path for storage.
      * It initializes the UI, storage, parser, and loads tasks from the specified file.
@@ -37,6 +35,7 @@ public class Seb {
                 String input = this.ui.readCommand().trim();
                 Ui.showLine();
                 Command command = parser.parseCommand(input);
+                //Solution below inspired by Copilot using Gemini with prompt "transform from print to return string"
                 String response = command.execute(tasks, storage);
                 if (!response.isEmpty()) {
                     System.out.println(response);
@@ -55,11 +54,9 @@ public class Seb {
         try {
             String input = userInput.trim();
             Command command = parser.parseCommand(input);
-            String response = command.execute(tasks, storage);
-            return response;
+            return command.execute(tasks, storage);
         } catch (UnknownInputException | WrongDescriptionException e) {
-            String error = e.getMessage();
-            return error;
+            return e.getMessage();
         }
     }
     public static void main(String[] args) {

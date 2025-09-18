@@ -1,8 +1,6 @@
 package seb;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 /**
  * Represents a task with a start and end date/time.
  */
@@ -88,5 +86,22 @@ public class Event extends Task {
      */
     public static void endSilentLoading() {
         isSilentLoading = false;
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Event)) {
+            return false;
+        }
+        Event o = (Event) other;
+        return this.description.equals(o.description)
+                && this.isDone == o.isDone
+                && this.type == o.type
+                && ((this.startDateTime == null && o.startDateTime == null)
+                    || (this.startDateTime != null && this.startDateTime.equals(o.startDateTime)))
+                && ((this.endDateTime == null && o.endDateTime == null)
+                    || (this.endDateTime != null && this.endDateTime.equals(o.endDateTime)));
     }
 }

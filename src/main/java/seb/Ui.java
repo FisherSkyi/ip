@@ -21,11 +21,9 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public static void showWelcome() {
-        System.out.println(
-                  "    ____________________________________________________________\n"
-                + "     Hello! I'm Seb\n"
-                + "     What can I do for you?\n"
-                + "    ____________________________________________________________");
+        Ui.showLine();
+        System.out.println("     Hello! I'm Seb. What can I do for you?");
+        Ui.showLine();
     }
     public static void showLine() {
         System.out.println("    ____________________________________________________________");

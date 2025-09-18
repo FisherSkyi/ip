@@ -26,7 +26,8 @@ public class Main extends Application {
     @FXML
     private Button sendButton;
     private Scene scene;
-    private Seb seb = new Seb("data/seb.txt");
+    private String dataFilePath = "data/seb.txt";
+    private Seb seb = new Seb(dataFilePath);
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image sebImage = new Image(this.getClass().getResourceAsStream("/images/DaSeb.png"));
     @Override

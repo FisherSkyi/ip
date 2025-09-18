@@ -1,6 +1,4 @@
 package seb;
-
-
 /**
  * Represents a task with a description, completion status, and type.
  */
@@ -47,12 +45,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        String priorityStr = switch (priority) {
-        case HIGH -> "HIGH";
-        case LOW -> "LOW";
-        case MEDIUM -> "MEDIUM";
-        case UNSPECIFIEDP -> "UNSPECIFIED";
-        };
+        String priorityStr = this.priority.toString();
         priorityStr = "[" + priorityStr + "] ";
         return priorityStr + this.getStatusIcon() + this.description;
     }

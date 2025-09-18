@@ -13,9 +13,9 @@ public class AddCommand implements Command {
     }
     /**
      * Executes the add command by adding the task to the task list and saving it to storage.
-     * @param tasks
-     * @param storage
-     * @return
+     * @param tasks The current list of tasks.
+     * @param storage The storage system to save the updated task list.
+     * @return A confirmation message indicating the task has been added and the new task count.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {

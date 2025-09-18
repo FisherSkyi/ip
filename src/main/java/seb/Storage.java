@@ -10,10 +10,12 @@ import java.io.IOException;
  * Manages loading and saving of tasks to a specified file.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+    //Solution below inspired by
+    //https://stackoverflow.com/questions/326390/how-do-i-create-a-java-string-from-the-contents-of-a-file
     /**
      * Loads tasks from the specified file.
      * @return TaskList containing the loaded tasks.

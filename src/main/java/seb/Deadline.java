@@ -28,9 +28,9 @@ public class Deadline extends Task {
     }
     /**
      * initialize deadline with priority
-     * @param description
-     * @param by
-     * @param priority
+     * @param description description of deadline
+     * @param by deadline date as string
+     * @param priority priority of the deadline
      */
     public Deadline(String description, String by, PriorityType priority) {
         super(description, TaskType.DEADLINE, priority);
@@ -73,5 +73,16 @@ public class Deadline extends Task {
      */
     public static void endSilentLoading() {
         isSilentLoading = false;
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+        Deadline o = (Deadline) other;
+        return super.equals(o) && this.dateString.equals(o.dateString);
     }
 }

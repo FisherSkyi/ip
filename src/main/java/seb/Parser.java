@@ -67,7 +67,6 @@ public class Parser {
         }
         return new NoOpCommand(); // empty input
     }
-
     private Command parseSetPriorityCommand(String input) {
         Matcher matcher = PRIORITY_SET_RE.matcher(input);
         if (matcher.matches()) {
@@ -91,7 +90,6 @@ public class Parser {
         }
         return new NoOpCommand();
     }
-
     /**
      * Parses a todo command and returns the corresponding AddCommand object.
      * @param input the user input string
@@ -105,7 +103,7 @@ public class Parser {
             throw new WrongDescriptionException("todo");
         }
         String description = matcher.group(1).trim();
-        PriorityType priority = null;
+        PriorityType priority;
         if (parts.length > 1) {
             try {
                 priority = PriorityType.fromInt(Integer.parseInt(parts[1].trim()));
@@ -113,8 +111,10 @@ public class Parser {
                 System.out.println("Invalid priority value. Setting to UNSPECIFIEDP.");
                 priority = PriorityType.UNSPECIFIEDP;
             }
+            return new AddCommand(new Todo(description, priority));
+        } else {
+            return new AddCommand(new Todo(description, PriorityType.UNSPECIFIEDP));
         }
-        return new AddCommand(new Todo(description, priority));
     }
     /**
      * Parses a deadline command and returns the corresponding AddCommand object.
@@ -132,7 +132,7 @@ public class Parser {
         }
         String description = matcher.group(1).trim();
         String by = matcher.group(2) == null ? "" : matcher.group(2).trim();
-        PriorityType priority = PriorityType.UNSPECIFIEDP;
+        PriorityType priority;
         if (prioritySplit.length > 1) {
             try {
                 priority = PriorityType.fromInt(Integer.parseInt(prioritySplit[1].trim()));
@@ -140,8 +140,10 @@ public class Parser {
                 System.out.println("Invalid priority value. Setting to UNSPECIFIEDP.");
                 priority = PriorityType.UNSPECIFIEDP;
             }
+            return new AddCommand(new Deadline(description, by, priority));
+        } else {
+            return new AddCommand(new Deadline(description, by, PriorityType.UNSPECIFIEDP));
         }
-        return new AddCommand(new Deadline(description, by, priority));
     }
     /**
      * Parses an event command and returns the corresponding AddCommand object.
@@ -160,15 +162,16 @@ public class Parser {
         String description = matcher.group(1).trim();
         String start = matcher.group(2) == null ? "" : matcher.group(2).trim();
         String end = matcher.group(3) == null ? "" : matcher.group(3).trim();
-        PriorityType priority = PriorityType.UNSPECIFIEDP;
+        PriorityType priority;
         if (prioritySplit.length > 1) {
             try {
                 priority = PriorityType.fromInt(Integer.parseInt(prioritySplit[1].trim()));
             } catch (NumberFormatException e) {
                 priority = PriorityType.UNSPECIFIEDP;
             }
+            return new AddCommand(new Event(description, start, end, priority));
         }
-        return new AddCommand(new Event(description, start, end, priority));
+        return new AddCommand(new Event(description, start, end, PriorityType.UNSPECIFIEDP));
     }
     /**
      * Parses a mark command and returns the corresponding MarkCommand object.
@@ -202,7 +205,7 @@ public class Parser {
      * Parses a find command and returns the corresponding FindCommand object.
      * @param input the user input string
      * @return the FindCommand object for finding tasks
-     * @throws WrongDescriptionException if the keyword is missing
+     * @throws IllegalArgumentException if the keyword is missing
      */
     private Command parseFindCommand(String input) {
         Matcher m = FIND_RE.matcher(input);

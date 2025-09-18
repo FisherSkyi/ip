@@ -10,7 +10,6 @@ import seb.TaskList;
 public class SetPriorityCommand implements Command {
     private final int index;
     private final PriorityType priority;
-
     /**
      * Creates a SetPriorityCommand.
      * @param index The index of the task (1-based from user input).
@@ -20,7 +19,6 @@ public class SetPriorityCommand implements Command {
         this.index = index - 1;
         this.priority = priority;
     }
-
     /**
      * Executes the command to set the priority of a task.
      * @param tasks The TaskList to update.
