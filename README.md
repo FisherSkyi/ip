@@ -1,14 +1,20 @@
 # Seb: A Task Management Bot
 
-### How to use the priority feature
-1. When adding a task, you can specify its priority by "/priority \<level\>" at the end of your command. For example:
-   - `todo add Buy groceries /priority 1`
-   - `deadline add Submit report /by 2025-10-01 /priority 2`
-   - `everyday add Exercise /from 2025-10-01 /to 2025-10-05 /priority 2`
+### User Guide
+[Github Page](https://fisherskyi.github.io/ip/)
 
-2. set priority of existing task by "priority \<index\> \<level\>"
+### Ui Image
+![Ui image](./docs/Ui.png)
 
-
+### Testing GitHub Pages site locally with Jekyll
+1. Ensure you have Ruby and Jekyll installed on your machine. Follow the [Jekyll installation guide](https://jekyllrb.com/docs/installation/) if needed.
+2. run the following command in the *root* directory of the project:
+   ```bash
+   bundle install
+   bundle exec jekyll serve --source docs
+   ```
+3. Open your web browser and navigate to `http://localhost:4000` to view
+---
 current bugs:
  - [X] task add without priority causes error
  - [X] set priority of existing task

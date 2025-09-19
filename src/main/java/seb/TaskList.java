@@ -11,8 +11,14 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
-    public Task getTasks(int index) {
-        return this.tasks.get(index);
+    public Task getTasks(int index) throws IndexOutOfBoundsException {
+        Task task;
+        try {
+            task = this.tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("OOPS!!! Invalid index number.");
+        }
+        return task;
     }
     public void deleteTasks(int index) {
         this.tasks.remove(index);

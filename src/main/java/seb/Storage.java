@@ -23,6 +23,7 @@ public class Storage {
     public TaskList loadTasks() {
         TaskList tasks = new TaskList();
         File file = new File(this.filePath);
+        // If file does not exist, return empty TaskList
         if (!file.exists()) {
             return tasks;
         }
