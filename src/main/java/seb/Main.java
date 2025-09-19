@@ -39,6 +39,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinWidth(220);
             stage.setMinHeight(417);
+            stage.setTitle("Seb");
             fxmlLoader.<MainWindow>getController().setSeb(seb);
             stage.show();
         } catch (IOException e) {
