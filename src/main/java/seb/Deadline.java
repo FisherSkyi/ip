@@ -57,9 +57,6 @@ public class Deadline extends Task {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
             result = "[D]" + super.toString() + " (by: " + date.format(formatter) + ")";
         }
-        if (!priority.equals(PriorityType.UNSPECIFIEDP)) {
-            result = "[" + priority + "] " + result;
-        }
         return result;
     }
     /**

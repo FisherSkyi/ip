@@ -19,5 +19,5 @@
 > priority value must be 1, 2 or 3 to be valid, anything else will be set to "UNSPECIFIED" by default.
 
 current bugs:
- - [ ] task add without priority causes error
- - [ ] 
+ - [X] task add without priority causes error
+ - [X] set priority of existing task

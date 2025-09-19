@@ -124,7 +124,7 @@ public class Storage {
                     sb.append(" | ").append(e.startString).append(" | ").append(e.endString)
                             .append(" | ").append(PriorityType.toInt(e.getPriority()));
                 } else if (t instanceof Todo) {
-                    sb.append(" | null | ").append(PriorityType.toInt(t.getPriority()));
+                    sb.append(" | ").append(PriorityType.toInt(t.getPriority()));
                 }
                 bw.write(sb.toString());
                 bw.newLine();

@@ -28,11 +28,11 @@ public class SetPriorityCommand implements Command {
     @Override
     public String execute(TaskList tasks, Storage storage) {
         if (index < 0 || index >= tasks.size()) {
-            return "     Invalid task index.";
+            return "Invalid task index.";
         }
         tasks.setPriority(index, priority);
         storage.saveTasks(tasks);
-        return String.format("     Set priority of task %d to %d.", index + 1, priority);
+        return String.format("Set priority of task %d to %s.", index + 1, priority.toString());
     }
 }
 
