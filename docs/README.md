@@ -1,30 +1,65 @@
 # Seb User Guide
 
-// Update the title above to match the actual product name
+[Ui image]: ./images/Ui.png
 
-// Product screenshot goes here
+Seb is a task management bot that helps you keep track of your tasks efficiently.
 
-// Product intro goes here
+It supports 3 types of tasks: TODO, DEADLINE and EVENT.\
+You can add, delete, mark/unmark tasks, view task list, find tasks by keywords and manage priorities of tasks.
 
-## Adding deadlines
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Adding Tasks](#adding-tasks)
+  - [Adding TODOs](#adding-todos)
+  - [Adding DEADLINEs](#adding-deadlines)
+  - [Adding EVENTs](#adding-events)
+- [Managing Tasks](#managing-tasks)
+  - [Viewing Tasks](#viewing-tasks)
+  - [Marking/Unmarking Tasks](#markingunmarking-tasks)
+  - [Finding Tasks](#finding-tasks)
+  - [Setting Task Priority](#setting-task-priority)
+- [Delete Tasks](#adding-deadlines)
 
-// Describe the action and its outcome.
+## getting started
 
-// Give examples of usage
+1. Download the latest version of Seb from the [repository](https://github.com/FisherSkyi/ip/releases).
+2. Ensure you have Java 17 or above installed on your machine.
+    > [!NOTE]
+    > If you are using MacOS, please follow [this guide](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+3. Run the application using the command: `java -jar seb.jar`.
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+### Say Hi to Seb
+**Input Syntax:** `hi` or `hello` (independent of case).
+**Expected Outcome:** Seb will greet you with a welcome message.
+```text
+Hello! I'm Seb.
+What can I do for you?
 ```
-expected output
+
+### Bye Seb
+**Input Syntax:** `bye` (independent of case).
+**Expected Outcome:** Seb will bid you farewell and terminate the session.
+```text
+Bye. Hope to see you again soon!
 ```
 
-## Feature ABC
+## adding tasks
 
-// Feature details
+### adding todos
+**Input Syntax:** `todo <task_description> [/priority <level>]`\
+**Example:** `todo Buy groceries /priority 1`\
+**Expected Outcome:** Seb will add a TODO task with the specified description and priority level.
+```text
+Got it. I've added this task:
+    [T][ ] Buy groceries (priority: LOW)
+Now you have 1 task in the list.
+```
+> [!NOTE]
+> Priority levels:
+> - 1: LOW
+> - 2: MEDIUM
+> - 3: HIGH
+> - Any other value: UNSPECIFIED 
+> If priority is not specified, it defaults to UNSPECIFIED.
 
 
-## Feature XYZ
-
-// Feature details

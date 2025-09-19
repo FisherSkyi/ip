@@ -8,15 +8,6 @@
 
 2. set priority of existing task by "priority \<index\> \<level\>"
 
-> [!NOTE]
-> Priority levels:
-> - 3: HIGH
-> - 2: MEDIUM
-> - 1: LOW
-> - Any other value: UNSPECIFIED
-
-> [!IMPORTANT]
-> priority value must be 1, 2 or 3 to be valid, anything else will be set to "UNSPECIFIED" by default.
 
 current bugs:
  - [X] task add without priority causes error

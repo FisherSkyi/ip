@@ -11,6 +11,6 @@ public class HiCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        return "     Hello! I'm Seb.\n     What can I do for you?";
+        return "Hello! I'm Seb.\nWhat can I do for you?";
     }
 }
