@@ -1,6 +1,6 @@
 # Seb User Guide
 
-![Ui image]: ./images/Ui.png
+![Ui image]: ./Ui.png
 
 Seb is a task management bot that helps you keep track of your tasks efficiently.
 
