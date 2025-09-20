@@ -36,5 +36,9 @@ public class AddCommand implements Command {
         AddCommand o = (AddCommand) other;
         return this.task.equals(o.task);
     }
+    @Override
+    public String toString() {
+        return "AddCommand: " + task.toString();
+    }
 }
 
