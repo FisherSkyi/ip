@@ -1,11 +1,13 @@
 # Seb: A Task Management Bot
 
+This is individual project for CS2103T Software Engineering, AY2025/26 Semester 2 for NUS Computer Science.
+
 ## Versions
-| versions | date   | description                      | link                                                   |
-|----------|--------|----------------------------------|--------------------------------------------------------|
-| v0.2     | 2025-9 | GUI, priority feature, better Ui | https://github.com/FisherSkyi/ip/releases              |
-| v0.11    | 2025-9 | initial GUI                      | https://github.com/FisherSkyi/ip/releases/tag/Level-10 |
-| v0.1     | 2025-8 | CLI backbone                     | https://github.com/FisherSkyi/ip/releases/tag/A-Jar    |
+| versions                                                                       | date   | description                      |
+|--------------------------------------------------------------------------------|--------|----------------------------------|
+| [v0.2](https://github.com/FisherSkyi/ip/releases/tag/A-Release)                | 2025-9 | GUI, priority feature, better Ui |
+| [v0.11](https://github.com/FisherSkyi/ip/releases/tag/Level-10)                | 2025-9 | initial GUI                      |
+| [v0.1](https://github.com/FisherSkyi/ip/releases/tag/A-Jar )                   | 2025-8 | CLI backbone                     | 
 
 ## User Guide
 [Github Page](https://fisherskyi.github.io/ip/)
