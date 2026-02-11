@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seb.command.AddCommand;
+import seb.command.AgentCommand;
 import seb.command.Command;
 import seb.command.DeleteCommand;
 import seb.command.ExitCommand;
@@ -29,6 +30,7 @@ public class Parser {
     private static final Pattern DELETE_RE = Pattern.compile("^delete\\s+(\\d+)$");
     private static final Pattern FIND_RE = Pattern.compile("^find\\s+(\\S.*)$");
     private static final Pattern PRIORITY_SET_RE = Pattern.compile("^priority\\s+(\\d+)\\s+(\\S+)$");
+    private static final Pattern AI_RE = Pattern.compile("^@ai\\s+(\\S.*)$");
     /**
      * Parses user input and returns the corresponding Command object.
      * @param input the user input string
@@ -62,6 +64,8 @@ public class Parser {
             return parseFindCommand(trimmedInput);
         } else if (trimmedInput.startsWith("priority")) {
             return parseSetPriorityCommand(trimmedInput);
+        } else if (trimmedInput.startsWith("@ai")) {
+            return parseAiCommand(trimmedInput);
         } else if (!trimmedInput.isEmpty()) {
             throw new UnknownInputException();
         }
@@ -227,6 +231,21 @@ public class Parser {
             return new DeleteCommand(index);
         } else {
             throw new IllegalArgumentException("Invalid delete command format");
+        }
+    }
+    /**
+     * Parses an AI query command and returns the corresponding AgentCommand object.
+     * @param input the user input string
+     * @return the AgentCommand object for querying the AI
+     * @throws IllegalArgumentException if the query is missing
+     */
+    private Command parseAiCommand(String input) {
+        Matcher m = AI_RE.matcher(input);
+        if (m.matches()) {
+            String query = m.group(1);
+            return new AgentCommand(query);
+        } else {
+            throw new IllegalArgumentException("Invalid @ai command format. Usage: @ai <query>");
         }
     }
 }

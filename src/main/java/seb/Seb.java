@@ -1,4 +1,5 @@
 package seb;
+import seb.command.AgentCommand;
 import seb.command.Command;
 import seb.command.ExitCommand;
 /**
